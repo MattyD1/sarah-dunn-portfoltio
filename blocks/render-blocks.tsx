@@ -6,6 +6,7 @@ import { MediaBlock } from "./media-block/component";
 const blockComponents = {
   archiveBlock: ArchiveBlock,
   mediaBlock: MediaBlock,
+  contentBlock: ArchiveBlock,
 };
 
 export const RenderBlocks: React.FC<{

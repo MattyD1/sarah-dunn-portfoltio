@@ -96,6 +96,9 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: null;
+  widgets: {
+    collections: CollectionsWidget;
+  };
   user: User;
   jobs: {
     tasks: {
@@ -173,7 +176,30 @@ export interface Page {
     media: string | Media;
     backgroundImage?: (string | null) | Media;
   };
-  layout: (ArchiveBlock | MediaBlock)[];
+  layout: (
+    | ArchiveBlock
+    | MediaBlock
+    | {
+        richText?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'contentBlock';
+      }
+  )[];
   meta?: {};
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -569,6 +595,13 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         archiveBlock?: T | ArchiveBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        contentBlock?:
+          | T
+          | {
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?: T | {};
   generateSlug?: T;
@@ -809,6 +842,16 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

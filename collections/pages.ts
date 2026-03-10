@@ -6,6 +6,7 @@ import { adminOrPublished } from "@/access/admin-or-published";
 import { hero } from "@/heros/config";
 import { ArchiveBlock } from "@/blocks/archive-block/config";
 import { MediaBlock } from "@/blocks/media-block/config";
+import { ContentBlock } from "@/blocks/content-block/config";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",
@@ -47,7 +48,7 @@ export const Pages: CollectionConfig<"pages"> = {
             {
               name: "layout",
               type: "blocks",
-              blocks: [ArchiveBlock, MediaBlock],
+              blocks: [ArchiveBlock, MediaBlock, ContentBlock],
               required: true,
               admin: {
                 initCollapsed: true,
