@@ -1,4 +1,4 @@
-import { ArrayField, Field } from "payload";
+import { ArrayField, Field, RowLabel, RowLabelComponent } from "payload";
 import { link, type LinkAppearances } from "./link";
 import deepMerge from "@/lib/deepMerge";
 

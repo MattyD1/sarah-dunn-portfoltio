@@ -4,6 +4,7 @@ import { draftMode } from "next/headers";
 import { Metadata } from "next";
 import { generateMeta } from "@/lib/generate-meta";
 import { RenderHero } from "@/heros/render-hero";
+import { RenderBlocks } from "@/blocks/render-blocks";
 
 type Args = {
   params: Promise<{ slug?: string }>;
@@ -73,11 +74,13 @@ export default async function Page({ params }: Args) {
 
   if (!page) return null;
 
-  const { hero } = page;
+  const { hero, layout } = page;
 
   return (
-    <article className="bg-[#C4C9C9]">
+    <article className="bg-[#C4C9C9] flex flex-col">
       <RenderHero {...hero} />
+      <RenderBlocks blocks={layout} />
+      {/* Buffer */}
       <div className="h-screen bg-[#C4C9C9]" />
     </article>
   );

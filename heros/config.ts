@@ -1,4 +1,9 @@
 import { linkGroup } from "@/fields/link-group";
+import {
+  EXPERIMENTAL_TableFeature,
+  FixedToolbarFeature,
+  lexicalEditor,
+} from "@payloadcms/richtext-lexical";
 import { Field } from "payload";
 
 export const hero: Field = {
@@ -24,6 +29,15 @@ export const hero: Field = {
     {
       name: "richText",
       type: "richText",
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            FixedToolbarFeature(),
+            EXPERIMENTAL_TableFeature(),
+          ];
+        },
+      }),
       label: false,
     },
     linkGroup({

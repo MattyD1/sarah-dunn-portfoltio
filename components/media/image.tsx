@@ -28,6 +28,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     size: sizeFromProps,
     src: srcFromProps,
     loading: loadingFromProps,
+    style,
   } = props;
 
   let width: number | undefined;
@@ -64,6 +65,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   return (
     <picture className={cn(pictureClassName)}>
       <NextImage
+        style={style}
         alt={alt || ""}
         className={cn(imgClassName)}
         fill={fill}

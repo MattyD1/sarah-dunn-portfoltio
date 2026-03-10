@@ -4,6 +4,8 @@ import { slugField } from "payload";
 import { adminOnly } from "@/access/admin-only";
 import { adminOrPublished } from "@/access/admin-or-published";
 import { hero } from "@/heros/config";
+import { ArchiveBlock } from "@/blocks/archive-block/config";
+import { MediaBlock } from "@/blocks/media-block/config";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",
@@ -41,7 +43,17 @@ export const Pages: CollectionConfig<"pages"> = {
           label: "Hero",
         },
         {
-          fields: [],
+          fields: [
+            {
+              name: "layout",
+              type: "blocks",
+              blocks: [ArchiveBlock, MediaBlock],
+              required: true,
+              admin: {
+                initCollapsed: true,
+              },
+            },
+          ],
           label: "Content",
         },
         {
