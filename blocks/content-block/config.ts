@@ -9,6 +9,8 @@ import {
   lexicalEditor,
 } from "@payloadcms/richtext-lexical";
 import { Block } from "payload";
+import { MarqueeBlock } from "../marquee-block/config";
+import { MediaBlock } from "../media-block/config";
 
 export const ContentBlock: Block = {
   slug: "contentBlock",
@@ -23,7 +25,7 @@ export const ContentBlock: Block = {
           return [
             ...rootFeatures,
             BlocksFeature({
-              blocks: [linkBlock],
+              blocks: [linkBlock, MarqueeBlock, MediaBlock],
             }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),

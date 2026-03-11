@@ -176,7 +176,16 @@ export interface Page {
     media: string | Media;
     backgroundImage?: (string | null) | Media;
   };
-  layout: (ArchiveBlock | MediaBlock | ContentBlock)[];
+  layout: (
+    | ArchiveBlock
+    | {
+        media: string | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'mediaBlock';
+      }
+    | ContentBlock
+  )[];
   meta?: {};
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -325,16 +334,6 @@ export interface Product {
   } | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -876,6 +875,16 @@ export interface TaskSchedulePublish {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "linkBlock".
  */
 export interface LinkBlock {
@@ -896,6 +905,24 @@ export interface LinkBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'linkBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarqueeBlock".
+ */
+export interface MarqueeBlock {
+  reversed: 'true' | 'false';
+  pausedOnHover?: boolean | null;
+  repeat: number;
+  textArray?:
+    | {
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'marqueeBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

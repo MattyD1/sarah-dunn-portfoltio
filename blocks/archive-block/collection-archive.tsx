@@ -44,7 +44,7 @@ const Card: React.FC<{ doc?: CardProductData }> = ({ doc }) => {
           {featureImage && typeof featureImage !== "string" && (
             <Media
               resource={featureImage}
-              className="w-full h-full abslute left-0 top-0"
+              className="w-full h-full absolute left-0 top-0"
               pictureClassName="w-full h-full flex items-center justify-center"
               imgClassName="max-w-full max-h-full h-auto w-auto object-fit-contain border-2 border-white rounded-lg shadow-image"
             />
