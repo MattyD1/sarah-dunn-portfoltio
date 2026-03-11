@@ -10,7 +10,7 @@ import {
   ColumnsPlugin,
   OPEN_LAYOUTS_DRAWER_COMMAND,
 } from "./plugins/columns-plugin";
-import { ColumnsIcon } from "../ui/icons/columns";
+import { ColumnsIcon } from "../../ui/icons/columns";
 
 export const LayoutsFeatureClient = createClientFeature({
   nodes: [LayoutItemNode, LayoutContainerNode],

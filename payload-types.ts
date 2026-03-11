@@ -176,30 +176,7 @@ export interface Page {
     media: string | Media;
     backgroundImage?: (string | null) | Media;
   };
-  layout: (
-    | ArchiveBlock
-    | MediaBlock
-    | {
-        richText?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'contentBlock';
-      }
-  )[];
+  layout: (ArchiveBlock | MediaBlock | ContentBlock)[];
   meta?: {};
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -358,6 +335,30 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock".
+ */
+export interface ContentBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -595,13 +596,7 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         archiveBlock?: T | ArchiveBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
-        contentBlock?:
-          | T
-          | {
-              richText?: T;
-              id?: T;
-              blockName?: T;
-            };
+        contentBlock?: T | ContentBlockSelect<T>;
       };
   meta?: T | {};
   generateSlug?: T;
@@ -642,6 +637,15 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock_select".
+ */
+export interface ContentBlockSelect<T extends boolean = true> {
+  richText?: T;
   id?: T;
   blockName?: T;
 }
@@ -869,6 +873,29 @@ export interface TaskSchedulePublish {
     user?: (string | null) | User;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "linkBlock".
+ */
+export interface LinkBlock {
+  link: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: string | Page;
+    } | null;
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should re rendered.
+     */
+    appearance?: 'default' | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'linkBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

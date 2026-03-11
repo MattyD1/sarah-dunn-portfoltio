@@ -1,17 +1,31 @@
 import { cn } from "@/lib/utils";
-import { DefaultNodeTypes } from "@payloadcms/richtext-lexical";
+import {
+  DefaultNodeTypes,
+  SerializedBlockNode,
+} from "@payloadcms/richtext-lexical";
 import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import {
   JSXConvertersFunction,
   RichText as PayloadRichText,
 } from "@payloadcms/richtext-lexical/react";
+import { CMSLink } from "./link";
+import { LinkBlock } from "@/payload-types";
+import {
+  LayoutsJSXConverter,
+  ExpandedJSXConverter,
+} from "@/plugins/converters";
 
-type NodeTypes = DefaultNodeTypes;
+type NodeTypes = DefaultNodeTypes | SerializedBlockNode<LinkBlock>;
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
   defaultConverters,
 }) => ({
   ...defaultConverters,
+  ...LayoutsJSXConverter,
+  ...ExpandedJSXConverter,
+  blocks: {
+    linkBlock: ({ node }) => <CMSLink {...node.fields.link} />,
+  },
 });
 
 type Props = {
@@ -28,6 +42,14 @@ export const RichText: React.FC<Props> = (props) => {
     ...rest
   } = props;
 
+  const proseClass = cn(
+    "mx-auto max-w-4xl",
+    "prose prose-invert prose-p:mix-blend-difference prose-headings:mix-blend-difference",
+    "lg:prose-lg",
+    "prose-h2:font-light prose-h2:capitalize prose-h2:tracking-wider",
+    className,
+  );
+
   return (
     <PayloadRichText
       converters={jsxConverters}
@@ -35,7 +57,7 @@ export const RichText: React.FC<Props> = (props) => {
         {
           container: enableGutter,
           "max-w-none": !enableGutter,
-          "mx-auto prose md:prose-md dark:prose-invert": enableProse,
+          [proseClass]: enableProse,
         },
         className,
       )}

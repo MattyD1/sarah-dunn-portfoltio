@@ -1,5 +1,5 @@
 import deepMerge from "@/lib/deepMerge";
-import { Field, GroupField } from "payload";
+import { Block, Field, GroupField } from "payload";
 
 export type LinkAppearances = "default";
 
@@ -139,4 +139,10 @@ export const link: LinkType = ({
   }
 
   return deepMerge(linkResult, overrides);
+};
+
+export const linkBlock: Block = {
+  slug: "linkBlock",
+  interfaceName: "linkBlock",
+  fields: [link()],
 };

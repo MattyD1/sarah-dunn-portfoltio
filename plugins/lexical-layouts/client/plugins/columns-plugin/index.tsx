@@ -76,10 +76,7 @@ export const ColumnsPlugin: PluginComponent = () => {
         drawerTitle="Create Columns Layout"
         featureKey="layouts"
         handleDrawerSubmit={(_fields, data) => {
-          console.log(data);
           if (!data.columns) return;
-
-          console.log(data);
 
           editor.dispatchCommand(INSERT_LAYOUT_COMMAND, String(data.columns));
         }}

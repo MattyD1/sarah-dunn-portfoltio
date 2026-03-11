@@ -210,7 +210,6 @@ export function LayoutPlugin(): null {
         },
         COMMAND_PRIORITY_EDITOR,
       ),
-
       editor.registerNodeTransform(LayoutItemNode, (node) => {
         // Structure enforcing transformers for each node type. In case nesting structure is not
         // "Container > Item" it'll unwrap nodes and convert it back

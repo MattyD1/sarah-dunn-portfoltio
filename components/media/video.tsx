@@ -12,8 +12,6 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
 
   const { url } = resource;
 
-  console.log(getMediaUrl(url));
-
   return (
     <video
       autoPlay

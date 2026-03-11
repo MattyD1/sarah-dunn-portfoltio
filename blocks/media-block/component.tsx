@@ -10,8 +10,6 @@ export const MediaBlock: React.FC<MediaBlockProps & { id?: string }> = (
 ) => {
   const { media } = props;
 
-  console.log(media);
-
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,

@@ -1,10 +1,11 @@
 import {
-  convertLexicalNodesToHTML,
-  createNode,
   createServerFeature,
+  StronglyTypedElementNode,
 } from "@payloadcms/richtext-lexical";
+import { SerializedLexicalNode } from "@payloadcms/richtext-lexical/lexical";
 import { Config, Field, FieldSchemaMap, sanitizeFields } from "payload";
-import { LayoutContainerNode } from "../client/nodes/layout-container-node";
+import type { LayoutContainerNode as _SerializedLayoutContainerNode } from "../client/nodes/layout-container-node";
+import type { LayoutItemNode as _SerializedLayoutItemNode } from "../client/nodes/layout-item-node";
 
 const fields: Field[] = [
   {
@@ -21,6 +22,18 @@ const fields: Field[] = [
     ],
   },
 ];
+
+export type SerializedLayoutContainerNode<
+  T extends SerializedLexicalNode = SerializedLexicalNode,
+> = StronglyTypedElementNode<
+  _SerializedLayoutContainerNode,
+  "layoutcontainer",
+  T
+>;
+
+export type SerializedLayoutItemNode<
+  T extends SerializedLexicalNode = SerializedLexicalNode,
+> = StronglyTypedElementNode<_SerializedLayoutItemNode, "layoutitem", T>;
 
 export const LayoutsFeature = createServerFeature({
   feature: async ({ config, isRoot, parentIsLocalized }) => {
@@ -45,43 +58,6 @@ export const LayoutsFeature = createServerFeature({
 
         return schemaMap;
       },
-      nodes: [
-        createNode({
-          converters: {
-            html: {
-              converter: async ({
-                converters,
-                currentDepth,
-                depth,
-                draft,
-                node,
-                overrideAccess,
-                parent,
-                req,
-                showHiddenFields,
-              }) => {
-                const childrenText = await convertLexicalNodesToHTML({
-                  converters,
-                  currentDepth,
-                  depth,
-                  draft,
-                  lexicalNodes: node.children,
-                  overrideAccess,
-                  parent: {
-                    ...node,
-                    parent,
-                  },
-                  req,
-                  showHiddenFields,
-                });
-                return `<div class="layoutContainer">${childrenText}</div>`;
-              },
-              nodeTypes: [LayoutContainerNode.getType()],
-            },
-          },
-          node: LayoutContainerNode,
-        }),
-      ],
     };
   },
   key: "layouts",

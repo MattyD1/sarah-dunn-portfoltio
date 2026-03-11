@@ -2,11 +2,12 @@ import { Page } from "@/payload-types";
 import { Fragment } from "react";
 import { ArchiveBlock } from "./archive-block/component";
 import { MediaBlock } from "./media-block/component";
+import { ContentBlock } from "./content-block/component";
 
 const blockComponents = {
   archiveBlock: ArchiveBlock,
   mediaBlock: MediaBlock,
-  contentBlock: ArchiveBlock,
+  contentBlock: ContentBlock,
 };
 
 export const RenderBlocks: React.FC<{

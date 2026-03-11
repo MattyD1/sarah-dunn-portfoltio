@@ -1,0 +1,13 @@
+import { JSXConverters } from "@payloadcms/richtext-lexical/react";
+import { SerializedExpandedContainerNode } from "../lexical-expanded/server";
+
+export const ExpandedJSXConverter: JSXConverters<SerializedExpandedContainerNode> =
+  {
+    expandedContainer: ({ node, nodesToJSX }) => {
+      console.log(node);
+      const children = nodesToJSX({
+        nodes: node.children,
+      });
+      return <div className="-mx-26">{children}</div>;
+    },
+  };

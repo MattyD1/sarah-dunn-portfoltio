@@ -50,7 +50,7 @@ export class LayoutContainerNode extends ElementNode {
   }
 
   static getType(): string {
-    return "layout-container";
+    return "layoutContainer";
   }
 
   static clone(node: LayoutContainerNode): LayoutContainerNode {

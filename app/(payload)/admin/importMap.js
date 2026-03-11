@@ -23,6 +23,8 @@ import { BlockquoteFeatureClient as BlockquoteFeatureClient_e70f5e05f09f93e00b99
 import { UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { ExpandedFeatureClient as ExpandedFeatureClient_8bd635c2ba54ee263f17d0ddffb5ca10 } from '../../../plugins/lexical-expanded/client'
+import { FullscreenFeatureClient as FullscreenFeatureClient_2fab1eecc17be0d2386de4166e3fe058 } from '../../../plugins/lexical-fullscreen/client'
 import { LayoutsFeatureClient as LayoutsFeatureClient_4a775d2e303f102f103e110f960d1087 } from '../../../plugins/lexical-layouts/client'
 import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
@@ -55,6 +57,8 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UploadFeatureClient": UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "/plugins/lexical-expanded/client#ExpandedFeatureClient": ExpandedFeatureClient_8bd635c2ba54ee263f17d0ddffb5ca10,
+  "/plugins/lexical-fullscreen/client#FullscreenFeatureClient": FullscreenFeatureClient_2fab1eecc17be0d2386de4166e3fe058,
   "/plugins/lexical-layouts/client#LayoutsFeatureClient": LayoutsFeatureClient_4a775d2e303f102f103e110f960d1087,
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,

@@ -35,7 +35,7 @@ export function $isEmptyLayoutItemNode(node: LexicalNode): boolean {
 
 export class LayoutItemNode extends ElementNode {
   static getType(): string {
-    return "layout-item";
+    return "layoutItem";
   }
 
   static clone(node: LayoutItemNode): LayoutItemNode {
