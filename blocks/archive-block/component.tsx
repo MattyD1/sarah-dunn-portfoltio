@@ -40,7 +40,7 @@ export const ArchiveBlock: React.FC<
   }
 
   return (
-    <div className="my-16 mx-32" id={`block-${id}`}>
+    <div id={`block-${id}`}>
       <div className="flex flex-row justify-between pb-4">
         <h2 className="text-4xl font-light capitalize tracking-wider mix-blend-difference">
           {heading}

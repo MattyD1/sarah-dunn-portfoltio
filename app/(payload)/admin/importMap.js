@@ -23,6 +23,10 @@ import { BlockquoteFeatureClient as BlockquoteFeatureClient_e70f5e05f09f93e00b99
 import { UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { IconCell as IconCell_ea2b075df10cc9274b672b1493da8f58 } from '@/fields/lucide-icon-picker'
+import { default as default_ea2b075df10cc9274b672b1493da8f58 } from '@/fields/lucide-icon-picker'
+import { ColorCell as ColorCell_d94cdae6e85cf07b44c2b6d0fbc6664c } from '@/fields/color-picker'
+import { default as default_d94cdae6e85cf07b44c2b6d0fbc6664c } from '@/fields/color-picker'
 import { ExpandedFeatureClient as ExpandedFeatureClient_8bd635c2ba54ee263f17d0ddffb5ca10 } from '../../../plugins/lexical-expanded/client'
 import { FullscreenFeatureClient as FullscreenFeatureClient_2fab1eecc17be0d2386de4166e3fe058 } from '../../../plugins/lexical-fullscreen/client'
 import { LayoutsFeatureClient as LayoutsFeatureClient_4a775d2e303f102f103e110f960d1087 } from '../../../plugins/lexical-layouts/client'
@@ -57,6 +61,10 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UploadFeatureClient": UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@/fields/lucide-icon-picker#IconCell": IconCell_ea2b075df10cc9274b672b1493da8f58,
+  "@/fields/lucide-icon-picker#default": default_ea2b075df10cc9274b672b1493da8f58,
+  "@/fields/color-picker#ColorCell": ColorCell_d94cdae6e85cf07b44c2b6d0fbc6664c,
+  "@/fields/color-picker#default": default_d94cdae6e85cf07b44c2b6d0fbc6664c,
   "/plugins/lexical-expanded/client#ExpandedFeatureClient": ExpandedFeatureClient_8bd635c2ba54ee263f17d0ddffb5ca10,
   "/plugins/lexical-fullscreen/client#FullscreenFeatureClient": FullscreenFeatureClient_2fab1eecc17be0d2386de4166e3fe058,
   "/plugins/lexical-layouts/client#LayoutsFeatureClient": LayoutsFeatureClient_4a775d2e303f102f103e110f960d1087,

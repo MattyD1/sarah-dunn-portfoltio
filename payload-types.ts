@@ -93,8 +93,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    footer: Footer;
+  };
+  globalsSelect: {
+    footer: FooterSelect<false> | FooterSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -168,7 +172,8 @@ export interface Page {
             /**
              * Choose how the link should re rendered.
              */
-            appearance?: 'default' | null;
+            appearance: 'default';
+            icon?: string | null;
           };
           id?: string | null;
         }[]
@@ -179,12 +184,19 @@ export interface Page {
   layout: (
     | ArchiveBlock
     | {
+        backgroundColor?: string | null;
+        gradient: 'linear' | 'radial' | 'none';
+        /**
+         * This value will adjust how the block is presented on the page
+         */
+        container?: ('prose' | 'full' | 'default') | null;
         media: string | Media;
         id?: string | null;
         blockName?: string | null;
         blockType: 'mediaBlock';
       }
     | ContentBlock
+    | LinksBlock
   )[];
   meta?: {};
   /**
@@ -192,6 +204,7 @@ export interface Page {
    */
   generateSlug?: boolean | null;
   slug: string;
+  pageColor?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -278,6 +291,12 @@ export interface Media {
  * via the `definition` "ArchiveBlock".
  */
 export interface ArchiveBlock {
+  backgroundColor?: string | null;
+  gradient: 'linear' | 'radial' | 'none';
+  /**
+   * This value will adjust how the block is presented on the page
+   */
+  container?: ('prose' | 'full' | 'default') | null;
   heading?: string | null;
   links?:
     | {
@@ -293,7 +312,8 @@ export interface ArchiveBlock {
           /**
            * Choose how the link should re rendered.
            */
-          appearance?: 'default' | null;
+          appearance: 'default';
+          icon?: string | null;
         };
         id?: string | null;
       }[]
@@ -340,6 +360,12 @@ export interface Product {
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
+  backgroundColor?: string | null;
+  gradient: 'linear' | 'radial' | 'none';
+  /**
+   * This value will adjust how the block is presented on the page
+   */
+  container?: ('prose' | 'full' | 'default') | null;
   richText?: {
     root: {
       type: string;
@@ -358,6 +384,43 @@ export interface ContentBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'contentBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "linksBlock".
+ */
+export interface LinksBlock {
+  backgroundColor?: string | null;
+  gradient: 'linear' | 'radial' | 'none';
+  /**
+   * This value will adjust how the block is presented on the page
+   */
+  container?: ('prose' | 'full' | 'default') | null;
+  heading?: string | null;
+  media: string | Media;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should re rendered.
+           */
+          appearance: 'default';
+          icon?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'linksBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -584,6 +647,7 @@ export interface PagesSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
                   };
               id?: T;
             };
@@ -596,10 +660,12 @@ export interface PagesSelect<T extends boolean = true> {
         archiveBlock?: T | ArchiveBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         contentBlock?: T | ContentBlockSelect<T>;
+        linksBlock?: T | LinksBlockSelect<T>;
       };
   meta?: T | {};
   generateSlug?: T;
   slug?: T;
+  pageColor?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -609,6 +675,9 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "ArchiveBlock_select".
  */
 export interface ArchiveBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  gradient?: T;
+  container?: T;
   heading?: T;
   links?:
     | T
@@ -622,6 +691,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
             };
         id?: T;
       };
@@ -635,6 +705,9 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  * via the `definition` "MediaBlock_select".
  */
 export interface MediaBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  gradient?: T;
+  container?: T;
   media?: T;
   id?: T;
   blockName?: T;
@@ -644,7 +717,39 @@ export interface MediaBlockSelect<T extends boolean = true> {
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  gradient?: T;
+  container?: T;
   richText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "linksBlock_select".
+ */
+export interface LinksBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  gradient?: T;
+  container?: T;
+  heading?: T;
+  media?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+              icon?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -848,6 +953,105 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  title: string;
+  contactInfo?: string | null;
+  socials?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should re rendered.
+           */
+          appearance: 'icon';
+          icon?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  navItems?:
+    | {
+        groupName: string;
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  title?: T;
+  contactInfo?: T;
+  socials?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+              icon?: T;
+            };
+        id?: T;
+      };
+  navItems?:
+    | T
+    | {
+        groupName?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
 export interface CollectionsWidget {
@@ -878,6 +1082,12 @@ export interface TaskSchedulePublish {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
+  backgroundColor?: string | null;
+  gradient: 'linear' | 'radial' | 'none';
+  /**
+   * This value will adjust how the block is presented on the page
+   */
+  container?: ('prose' | 'full' | 'default') | null;
   media: string | Media;
   id?: string | null;
   blockName?: string | null;
@@ -900,7 +1110,8 @@ export interface LinkBlock {
     /**
      * Choose how the link should re rendered.
      */
-    appearance?: 'default' | null;
+    appearance: 'default';
+    icon?: string | null;
   };
   id?: string | null;
   blockName?: string | null;

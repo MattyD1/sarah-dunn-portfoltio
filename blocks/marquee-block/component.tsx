@@ -28,7 +28,7 @@ export const MarqueeBlock: React.FC<MarqueeBlockProps & { id?: string }> = (
           ))}
         </Marquee>
       )}
-      <div className="from-[#C4C9C9] pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r "></div>
+      <div className="from-[#C4C9C9] pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r"></div>
       <div className="from-[#C4C9C9] pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l"></div>
     </div>
   );

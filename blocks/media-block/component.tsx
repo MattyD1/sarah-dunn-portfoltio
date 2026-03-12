@@ -20,7 +20,7 @@ export const MediaBlock: React.FC<MediaBlockProps & { id?: string }> = (
   return (
     <div
       ref={container}
-      className="relative flex items-center justify-center h-screen overflow-hidden my-16"
+      className="relative flex items-center justify-center h-screen overflow-hidden"
       style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
     >
       <div className="fixed top-[-10vh] left-0 h-[120vh] w-full">

@@ -10,7 +10,7 @@ import { Users } from "./collections/users";
 import { Media } from "./collections/media";
 import { s3Storage } from "@payloadcms/storage-s3";
 import { Products } from "./collections/products";
-import { FullscreenEditorFeature } from "@payload-bites/fullscreen-editor";
+import { Footer } from "./globals/footer/config";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -23,6 +23,7 @@ export default buildConfig({
     },
   },
   collections: [Pages, Users, Media, Products],
+  globals: [Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

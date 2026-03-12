@@ -74,10 +74,15 @@ export default async function Page({ params }: Args) {
 
   if (!page) return null;
 
-  const { hero, layout } = page;
+  const { hero, layout, pageColor } = page;
 
   return (
-    <article className="bg-[#C4C9C9] flex flex-col">
+    <article
+      className="flex flex-col"
+      style={{
+        backgroundColor: pageColor ?? undefined,
+      }}
+    >
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />
       {/* Buffer */}

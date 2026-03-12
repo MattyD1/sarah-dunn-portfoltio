@@ -68,7 +68,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
       <Link className={cn(className)} href={href || url || ""} {...newTabProps}>
         {label && label}
         {children && children}
-        <ArrowRight />
+        <ArrowRight strokeWidth={size === "full" ? 1 : 2} />
       </Link>
     </Button>
   );

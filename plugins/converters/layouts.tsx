@@ -8,7 +8,6 @@ export const LayoutsJSXConverter: JSXConverters<
   SerializedLayoutContainerNode | SerializedLayoutItemNode
 > = {
   layoutContainer: ({ node, nodesToJSX }) => {
-    console.log(node);
     const children = nodesToJSX({
       nodes: node.children,
     });

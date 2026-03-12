@@ -11,11 +11,13 @@ import {
 import { Block } from "payload";
 import { MarqueeBlock } from "../marquee-block/config";
 import { MediaBlock } from "../media-block/config";
+import { blockOptions } from "@/fields/block-options";
 
 export const ContentBlock: Block = {
   slug: "contentBlock",
   interfaceName: "ContentBlock",
   fields: [
+    blockOptions(),
     {
       name: "richText",
       type: "richText",

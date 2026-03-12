@@ -31,6 +31,7 @@ const buttonVariants = cva(
         "icon-xs": "size-6 rounded-md [&_svg:not([class*='size-'])]:size-3",
         "icon-sm": "size-8",
         "icon-lg": "size-10",
+        full: "rounded-full w-full px-6 py-4 has-[>svg]:px-4 text-4xl justify-between font-light tracking-wider [&_svg:not([class*='size-'])]:size-9",
       },
     },
     defaultVariants: {

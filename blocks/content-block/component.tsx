@@ -7,8 +7,6 @@ export const ContentBlock: React.FC<ContentBlockProps & { id?: string }> = (
   const { id, richText } = props;
 
   return (
-    <div className="my-16 mx-32" id={`block-${id}`}>
-      {richText && <RichText data={richText} enableProse />}
-    </div>
+    <div id={`block-${id}`}>{richText && <RichText data={richText} />}</div>
   );
 };

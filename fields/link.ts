@@ -1,7 +1,8 @@
 import deepMerge from "@/lib/deepMerge";
 import { Block, Field, GroupField } from "payload";
+import { iconField } from "./lucide-icon-picker/field";
 
-export type LinkAppearances = "default";
+export type LinkAppearances = "default" | "icon";
 
 export const appearanceOptions: Record<
   LinkAppearances,
@@ -10,6 +11,10 @@ export const appearanceOptions: Record<
   default: {
     label: "Default",
     value: "default",
+  },
+  icon: {
+    label: "Icon",
+    value: "icon",
   },
 };
 
@@ -127,15 +132,30 @@ export const link: LinkType = ({
       );
     }
 
-    linkResult.fields.push({
-      name: "appearance",
-      type: "select",
-      admin: {
-        description: "Choose how the link should re rendered.",
+    linkResult.fields.push(
+      {
+        name: "appearance",
+        type: "select",
+        required: true,
+        admin: {
+          description: "Choose how the link should re rendered.",
+        },
+        options: appearanceOptionToUse,
       },
-      defaultValue: "default",
-      options: appearanceOptionToUse,
-    });
+      iconField({
+        name: "icon",
+        overrides: (field) => ({
+          ...field,
+          admin: {
+            ...field.admin,
+            condition: (_, siblingData) => {
+              console.log(siblingData);
+              return siblingData?.appearance === "icon";
+            },
+          },
+        }),
+      }),
+    );
   }
 
   return deepMerge(linkResult, overrides);

@@ -10,11 +10,12 @@ export const HighImpactHero: React.FC<Page["hero"]> = ({
   backgroundImage,
 }) => {
   return (
-    <div className="relative bg-[#C4C9C9] h-screen flex px-6">
-      <div className="absolute inset-0">
+    <div className="relative bg-[#C4C9C9] text-white h-screen flex px-6">
+      <div className="absolute inset-0  mask-b-from-60% mask-b-to-100%">
         {backgroundImage && (
           <Media
-            imgClassName="w-full h-screen object-cover mask-b-from-60% mask-b-to-100%"
+            fill
+            imgClassName="w-full h-full object-cover "
             priority
             resource={backgroundImage}
           />

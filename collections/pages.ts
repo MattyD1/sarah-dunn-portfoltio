@@ -7,6 +7,8 @@ import { hero } from "@/heros/config";
 import { ArchiveBlock } from "@/blocks/archive-block/config";
 import { MediaBlock } from "@/blocks/media-block/config";
 import { ContentBlock } from "@/blocks/content-block/config";
+import { LinksBlock } from "@/blocks/links-block/configs";
+import { colorField } from "@/fields/color-picker/field";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",
@@ -48,7 +50,7 @@ export const Pages: CollectionConfig<"pages"> = {
             {
               name: "layout",
               type: "blocks",
-              blocks: [ArchiveBlock, MediaBlock, ContentBlock],
+              blocks: [ArchiveBlock, MediaBlock, ContentBlock, LinksBlock],
               required: true,
               admin: {
                 initCollapsed: true,
@@ -65,6 +67,19 @@ export const Pages: CollectionConfig<"pages"> = {
       ],
     },
     slugField(),
+    colorField({
+      name: "pageColor",
+      colorPresets: ["#C4C9C9", "#BCC2C2"],
+      showTextInput: true,
+      debounceDelay: 500,
+      overrides: (field) => ({
+        ...field,
+        admin: {
+          ...field.admin,
+          position: "sidebar",
+        },
+      }),
+    }),
   ],
   versions: {
     drafts: {

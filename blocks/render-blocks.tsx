@@ -3,11 +3,14 @@ import { Fragment } from "react";
 import { ArchiveBlock } from "./archive-block/component";
 import { MediaBlock } from "./media-block/component";
 import { ContentBlock } from "./content-block/component";
+import { LinksBlock } from "./links-block/component";
+import { BlockContainer } from "@/components/block-container";
 
 const blockComponents = {
   archiveBlock: ArchiveBlock,
   mediaBlock: MediaBlock,
   contentBlock: ContentBlock,
+  linksBlock: LinksBlock,
 };
 
 export const RenderBlocks: React.FC<{
@@ -31,10 +34,15 @@ export const RenderBlocks: React.FC<{
         if (!Block) return null;
 
         return (
-          <div key={i}>
+          <BlockContainer
+            key={i}
+            gradient={block.gradient}
+            container={block.container}
+            backgroundColor={block.backgroundColor}
+          >
             {/* @ts-expect-error there may be some mismatch between the expected types here */}
             <Block {...block} />
-          </div>
+          </BlockContainer>
         );
       })}
     </Fragment>

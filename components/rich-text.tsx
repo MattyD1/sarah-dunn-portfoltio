@@ -82,7 +82,7 @@ export const RichText: React.FC<Props> = (props) => {
       className={cn(
         {
           container: enableGutter,
-          "max-w-none": !enableGutter,
+          "max-w-[100ch]": !enableGutter,
           [proseClass]: enableProse,
         },
         className,
