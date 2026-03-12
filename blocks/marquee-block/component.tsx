@@ -20,7 +20,7 @@ export const MarqueeBlock: React.FC<MarqueeBlockProps & { id?: string }> = (
             <p
               key={i}
               className={cn(
-                "text-5xl font-light tracking-wider text-white/25 px-8",
+                "text-4xl font-light tracking-wider text-white/25 px-8",
               )}
             >
               {text}

@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { generateMeta } from "@/lib/generate-meta";
 import { RenderHero } from "@/heros/render-hero";
 import { RenderBlocks } from "@/blocks/render-blocks";
+import { Footer } from "@/globals/footer/component";
 
 type Args = {
   params: Promise<{ slug?: string }>;
@@ -85,8 +86,7 @@ export default async function Page({ params }: Args) {
     >
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />
-      {/* Buffer */}
-      <div className="h-screen bg-[#C4C9C9]" />
+      <Footer />
     </article>
   );
 }

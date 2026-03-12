@@ -113,9 +113,9 @@ export const link: LinkType = ({
           type: "text",
           admin: {
             width: "50%",
+            condition: (_, siblingData) => siblingData?.appearance !== "icon",
           },
           label: "Label",
-          required: true,
         },
       ],
     });
@@ -144,16 +144,6 @@ export const link: LinkType = ({
       },
       iconField({
         name: "icon",
-        overrides: (field) => ({
-          ...field,
-          admin: {
-            ...field.admin,
-            condition: (_, siblingData) => {
-              console.log(siblingData);
-              return siblingData?.appearance === "icon";
-            },
-          },
-        }),
       }),
     );
   }

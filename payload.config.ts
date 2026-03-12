@@ -26,9 +26,6 @@ export default buildConfig({
   globals: [Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
-  typescript: {
-    outputFile: path.resolve(dirname, "payload-types.ts"),
-  },
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || "",
   }),

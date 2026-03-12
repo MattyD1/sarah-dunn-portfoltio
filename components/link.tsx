@@ -3,7 +3,8 @@ import { Button, ButtonProps } from "./ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Icon, LucideIcon } from "lucide-react";
+import { DynamicIcon, IconName } from "lucide-react/dynamic";
 
 type CMSLinkType = {
   appearance?: "inline" | ButtonProps["variant"];
@@ -18,6 +19,7 @@ type CMSLinkType = {
   size?: ButtonProps["size"] | null;
   type?: "custom" | "reference" | null;
   url?: string | null;
+  icon?: string | null;
 };
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -31,6 +33,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     reference,
     size: sizeFromProps,
     url,
+    icon,
   } = props;
 
   const href =
@@ -68,7 +71,12 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
       <Link className={cn(className)} href={href || url || ""} {...newTabProps}>
         {label && label}
         {children && children}
-        <ArrowRight strokeWidth={size === "full" ? 1 : 2} />
+        {icon && (
+          <DynamicIcon
+            name={icon as IconName}
+            strokeWidth={size === "full" ? 1 : 2}
+          />
+        )}
       </Link>
     </Button>
   );
