@@ -4,10 +4,11 @@ import { Product } from "@/payload-types";
 
 type Props = {
   products: CardProductData[];
+  backgroundColor: string;
 };
 
 export const CollectionArchive: React.FC<Props> = (props) => {
-  const { products } = props;
+  const { products, backgroundColor } = props;
 
   return (
     <div className={cn("container")}>
@@ -17,7 +18,7 @@ export const CollectionArchive: React.FC<Props> = (props) => {
             if (typeof result === "object" && result !== null) {
               return (
                 <div key={index} className="aspect-square">
-                  <Card doc={result} />
+                  <Card doc={result} backgroundColor={backgroundColor} />
                 </div>
               );
             }
@@ -32,12 +33,20 @@ export const CollectionArchive: React.FC<Props> = (props) => {
 
 type CardProductData = Pick<Product, "featureImage">;
 
-const Card: React.FC<{ doc?: CardProductData }> = ({ doc }) => {
+const Card: React.FC<{ doc?: CardProductData; backgroundColor: string }> = ({
+  doc,
+  backgroundColor,
+}) => {
   const { featureImage } = doc || {};
 
   return (
     <article className="w-full h-full min-h-full relative">
-      <div className="w-full h-full bg-[#e5e9e9] rounded-2xl p-6">
+      <div
+        className="w-full h-full rounded-2xl p-6"
+        style={{
+          backgroundColor: backgroundColor,
+        }}
+      >
         <div className="aspect-square flex place-content-center items-center w-full relative overflow-visible">
           {!featureImage && <div>No image</div>}
 

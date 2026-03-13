@@ -13,7 +13,7 @@ export const colorField = (options?: ColorPickerArgs): TextField => {
         Field: {
           path: "@/fields/color-picker",
           clientProps: {
-            colorPresets: options?.colorPresets || [],
+            colorPresets: options?.colorPresets,
             debounceDelay: options?.debounceDelay || 300,
             showTextInput: options?.showTextInput !== false, // default true
           },

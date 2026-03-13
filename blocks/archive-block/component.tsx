@@ -10,7 +10,7 @@ import configPromise from "@payload-config";
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & { id?: string }
 > = async (props) => {
-  const { id, heading, links, selectedDocs } = props;
+  const { id, heading, links, archiveBackground, selectedDocs } = props;
 
   let products: Product[] = [];
 
@@ -57,7 +57,10 @@ export const ArchiveBlock: React.FC<
           )}
         </div>
       </div>
-      <CollectionArchive products={products} />
+      <CollectionArchive
+        products={products}
+        backgroundColor={archiveBackground ?? "#00000000"}
+      />
     </div>
   );
 };

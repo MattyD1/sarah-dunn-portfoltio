@@ -36,9 +36,7 @@ export const ArchiveBlock: Block = {
     },
     colorField({
       name: "archiveBackground",
-      colorPresets: ["#C4C9C9", "#BCC2C2"],
       showTextInput: true,
-      debounceDelay: 500,
       overrides: (field) => ({
         ...field,
         admin: {

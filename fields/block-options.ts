@@ -14,7 +14,6 @@ export const blockOptions: BlockOptionsType = ({ overrides = {} } = {}) => {
       colorField({
         name: "backgroundColor",
         showTextInput: true,
-        debounceDelay: 500,
       }),
       {
         name: "gradient",

@@ -168,7 +168,7 @@ export interface Page {
               value: string | Page;
             } | null;
             url?: string | null;
-            label: string;
+            label?: string | null;
             /**
              * Choose how the link should re rendered.
              */
@@ -205,6 +205,7 @@ export interface Page {
   generateSlug?: boolean | null;
   slug: string;
   pageColor?: string | null;
+  dark: boolean;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -308,7 +309,7 @@ export interface ArchiveBlock {
             value: string | Page;
           } | null;
           url?: string | null;
-          label: string;
+          label?: string | null;
           /**
            * Choose how the link should re rendered.
            */
@@ -319,6 +320,7 @@ export interface ArchiveBlock {
       }[]
     | null;
   populatedBy?: 'selection' | null;
+  archiveBackground?: string | null;
   selectedDocs?:
     | {
         relationTo: 'products';
@@ -408,7 +410,7 @@ export interface LinksBlock {
             value: string | Page;
           } | null;
           url?: string | null;
-          label: string;
+          label?: string | null;
           /**
            * Choose how the link should re rendered.
            */
@@ -666,6 +668,7 @@ export interface PagesSelect<T extends boolean = true> {
   generateSlug?: T;
   slug?: T;
   pageColor?: T;
+  dark?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -696,6 +699,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
         id?: T;
       };
   populatedBy?: T;
+  archiveBackground?: T;
   selectedDocs?: T;
   id?: T;
   blockName?: T;
@@ -969,7 +973,7 @@ export interface Footer {
             value: string | Page;
           } | null;
           url?: string | null;
-          label: string;
+          label?: string | null;
           /**
            * Choose how the link should re rendered.
            */
@@ -984,7 +988,7 @@ export interface Footer {
         groupName: string;
         links?:
           | {
-              link: {
+              link?: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
                 reference?: {
@@ -992,7 +996,7 @@ export interface Footer {
                   value: string | Page;
                 } | null;
                 url?: string | null;
-                label: string;
+                label?: string | null;
               };
               id?: string | null;
             }[]
@@ -1106,7 +1110,7 @@ export interface LinkBlock {
       value: string | Page;
     } | null;
     url?: string | null;
-    label: string;
+    label?: string | null;
     /**
      * Choose how the link should re rendered.
      */

@@ -69,9 +69,8 @@ export const Pages: CollectionConfig<"pages"> = {
     slugField(),
     colorField({
       name: "pageColor",
-      colorPresets: ["#000000", "#ffffff"],
+      colorPresets: [],
       showTextInput: true,
-      debounceDelay: 500,
       overrides: (field) => ({
         ...field,
         admin: {
@@ -80,6 +79,15 @@ export const Pages: CollectionConfig<"pages"> = {
         },
       }),
     }),
+    {
+      name: "dark",
+      label: "Dark Page",
+      type: "checkbox",
+      required: true,
+      admin: {
+        position: "sidebar",
+      },
+    },
   ],
   versions: {
     drafts: {

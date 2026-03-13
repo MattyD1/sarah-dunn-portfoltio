@@ -29,24 +29,27 @@ const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
   const { setValue, value, disabled, showError } = useField<string>({
     path: path || field.name,
   });
-  const pageColor = useFormFields(([fields]) => fields?.pageColor?.value);
+  const pageFields = useFormFields(([fields]) => ({
+    pageColor: fields?.pageColor?.value as string | null,
+    dark: (fields?.dark?.value as boolean | null) || false,
+  }));
   const [localValue, setLocalValue] = useState(value || "");
   const colorInputRef = useRef<HTMLInputElement>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   let presets = colorPresets;
 
-  if (!colorPresets || colorPresets.length <= 0) {
-    if (typeof pageColor === "string") {
-      try {
-        const result = generateRadixColors({
-          appearance: "light",
-          accent: pageColor,
-          gray: "#8B8D98",
-          background: "#FFFFFF",
-        });
-        presets = result.accentScale;
-      } catch (e) {}
+  if (!colorPresets && pageFields.pageColor) {
+    try {
+      const result = generateRadixColors({
+        appearance: pageFields.dark ? "dark" : "light",
+        accent: pageFields.pageColor,
+        gray: "#8B8D98",
+        background: pageFields.pageColor,
+      });
+      presets = [pageFields.pageColor, result.background];
+    } catch (e) {
+      console.log(e);
     }
   }
 
