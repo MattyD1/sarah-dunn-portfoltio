@@ -69,7 +69,7 @@ export const Pages: CollectionConfig<"pages"> = {
     slugField(),
     colorField({
       name: "pageColor",
-      colorPresets: ["#C4C9C9", "#BCC2C2"],
+      colorPresets: ["#000000", "#ffffff"],
       showTextInput: true,
       debounceDelay: 500,
       overrides: (field) => ({

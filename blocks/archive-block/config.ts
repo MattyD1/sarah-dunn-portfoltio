@@ -1,4 +1,5 @@
 import { blockOptions } from "@/fields/block-options";
+import { colorField } from "@/fields/color-picker/field";
 import { linkGroup } from "@/fields/link-group";
 import { Block } from "payload";
 
@@ -8,15 +9,20 @@ export const ArchiveBlock: Block = {
   fields: [
     blockOptions(),
     {
-      name: "heading",
-      type: "text",
-      label: "Heading",
+      type: "group",
+      fields: [
+        {
+          name: "heading",
+          type: "text",
+          label: "Heading",
+        },
+        linkGroup({
+          overrides: {
+            maxRows: 1,
+          },
+        }),
+      ],
     },
-    linkGroup({
-      overrides: {
-        maxRows: 1,
-      },
-    }),
     {
       name: "populatedBy",
       type: "select",
@@ -28,6 +34,19 @@ export const ArchiveBlock: Block = {
         },
       ],
     },
+    colorField({
+      name: "archiveBackground",
+      colorPresets: ["#C4C9C9", "#BCC2C2"],
+      showTextInput: true,
+      debounceDelay: 500,
+      overrides: (field) => ({
+        ...field,
+        admin: {
+          ...field.admin,
+          width: "50%",
+        },
+      }),
+    }),
     {
       name: "selectedDocs",
       type: "relationship",

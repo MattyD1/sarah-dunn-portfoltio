@@ -10,7 +10,7 @@ export const HighImpactHero: React.FC<Page["hero"]> = ({
   backgroundImage,
 }) => {
   return (
-    <div className="relative bg-[#C4C9C9] text-white h-screen flex px-6">
+    <div className="relative text-white h-screen flex px-6">
       <div className="absolute inset-0  mask-b-from-60% mask-b-to-100%">
         {backgroundImage && (
           <Media

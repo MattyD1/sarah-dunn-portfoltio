@@ -28,6 +28,7 @@ export const Footer: GlobalConfig = {
     },
     {
       name: "navItems",
+      label: "Footer Navigation",
       type: "array",
       maxRows: 4,
       fields: [

@@ -11,45 +11,29 @@ export const blockOptions: BlockOptionsType = ({ overrides = {} } = {}) => {
     type: "collapsible",
     label: "Block Options",
     fields: [
+      colorField({
+        name: "backgroundColor",
+        showTextInput: true,
+        debounceDelay: 500,
+      }),
       {
-        type: "row",
-        fields: [
-          colorField({
-            name: "backgroundColor",
-            colorPresets: ["#C4C9C9", "#BCC2C2"],
-            showTextInput: true,
-            debounceDelay: 500,
-            overrides: (field) => ({
-              ...field,
-              admin: {
-                ...field.admin,
-                width: "50%",
-              },
-            }),
-          }),
+        name: "gradient",
+        type: "radio",
+        label: "Apply Gradient",
+        defaultValue: "none",
+        required: true,
+        options: [
           {
-            name: "gradient",
-            type: "radio",
-            label: "Apply Gradient",
-            defaultValue: "none",
-            required: true,
-            options: [
-              {
-                label: "Linear",
-                value: "linear",
-              },
-              {
-                label: "Radial",
-                value: "radial",
-              },
-              {
-                label: "None",
-                value: "none",
-              },
-            ],
-            admin: {
-              width: "50%",
-            },
+            label: "Linear",
+            value: "linear",
+          },
+          {
+            label: "Radial",
+            value: "radial",
+          },
+          {
+            label: "None",
+            value: "none",
           },
         ],
       },

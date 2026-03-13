@@ -5,6 +5,7 @@ import {
   FieldLabel,
   TextInput,
   useField,
+  useFormFields,
   useTranslation,
 } from "@payloadcms/ui";
 import {
@@ -15,6 +16,7 @@ import {
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./style.scss";
 import { ColorPickerProps } from "./types";
+import { generateRadixColors } from "radix-theme-generator";
 
 const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
   path,
@@ -27,18 +29,28 @@ const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
   const { setValue, value, disabled, showError } = useField<string>({
     path: path || field.name,
   });
+  const pageColor = useFormFields(([fields]) => fields?.pageColor?.value);
   const [localValue, setLocalValue] = useState(value || "");
   const colorInputRef = useRef<HTMLInputElement>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const actualReadOnly = readOnly || field.admin?.readOnly || false;
+  let presets = colorPresets;
 
-  // // Sync external value changes to local state
-  // useEffect(() => {
-  //   if (value !== localValue) {
-  //     setLocalValue(value || "");
-  //   }
-  // }, [value]);
+  if (!colorPresets || colorPresets.length <= 0) {
+    if (typeof pageColor === "string") {
+      try {
+        const result = generateRadixColors({
+          appearance: "light",
+          accent: pageColor,
+          gray: "#8B8D98",
+          background: "#FFFFFF",
+        });
+        presets = result.accentScale;
+      } catch (e) {}
+    }
+  }
+
+  const actualReadOnly = readOnly || field.admin?.readOnly || false;
 
   // Debounced value update
   const debouncedSetValue = useCallback(
@@ -130,13 +142,13 @@ const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
         <FieldError showError={showError} path={path} />
       </div>
 
-      {colorPresets && colorPresets.length > 0 && (
+      {presets && presets.length > 0 && (
         <div
           className={`color-picker__presets ${actualReadOnly || disabled ? "color-picker__presets--disabled" : ""}`}
         >
           <div className="color-picker__presets-label">Presets:</div>
           <div className="color-picker__presets-grid">
-            {colorPresets.map((color, index) => (
+            {presets.map((color, index) => (
               <button
                 key={`${color}-${index}`}
                 type="button"

@@ -7,8 +7,6 @@ export const Footer = async () => {
 
   const { title, contactInfo, socials, navItems } = footerData;
 
-  console.log(socials);
-
   return (
     <footer className="flex flex-row mx-32 pt-16 justify-between mix-blend-difference">
       <div className="flex flex-col gap-4">

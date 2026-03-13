@@ -37,7 +37,7 @@ const Card: React.FC<{ doc?: CardProductData }> = ({ doc }) => {
 
   return (
     <article className="w-full h-full min-h-full relative">
-      <div className="w-full h-full bg-[#BCC2C2] rounded-2xl p-6">
+      <div className="w-full h-full bg-[#e5e9e9] rounded-2xl p-6">
         <div className="aspect-square flex place-content-center items-center w-full relative overflow-visible">
           {!featureImage && <div>No image</div>}
 
