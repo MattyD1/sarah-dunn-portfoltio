@@ -70,8 +70,8 @@ export const RichText: React.FC<Props> = (props) => {
 
   const proseClass = cn(
     "mx-auto",
-    "prose prose-invert lg:prose-lg",
-    "prose-p:mix-blend-difference prose-headings:mix-blend-difference",
+    "prose lg:prose-lg",
+    "prose-headings:text-(--accent-twelve) prose-p:text-(--accent-twelve)",
     "prose-headings:font-light prose-headings:capitalize prose-headings:tracking-wider",
     className,
   );

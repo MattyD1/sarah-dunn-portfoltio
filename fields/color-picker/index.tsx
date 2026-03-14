@@ -17,6 +17,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./style.scss";
 import { ColorPickerProps } from "./types";
 import { generateRadixColors } from "radix-theme-generator";
+import { ColorPalette } from "../color-palette/types";
 
 const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
   path,
@@ -30,28 +31,13 @@ const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
     path: path || field.name,
   });
   const pageFields = useFormFields(([fields]) => ({
-    pageColor: fields?.pageColor?.value as string | null,
-    dark: (fields?.dark?.value as boolean | null) || false,
+    palette: fields?.["theme.palette"]?.value as ColorPalette | null,
   }));
   const [localValue, setLocalValue] = useState(value || "");
   const colorInputRef = useRef<HTMLInputElement>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  let presets = colorPresets;
-
-  if (!colorPresets && pageFields.pageColor) {
-    try {
-      const result = generateRadixColors({
-        appearance: pageFields.dark ? "dark" : "light",
-        accent: pageFields.pageColor,
-        gray: "#8B8D98",
-        background: pageFields.pageColor,
-      });
-      presets = [pageFields.pageColor, result.background];
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  const presets = colorPresets ?? pageFields?.palette?.accentScale ?? [];
 
   const actualReadOnly = readOnly || field.admin?.readOnly || false;
 

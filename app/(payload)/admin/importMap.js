@@ -31,6 +31,7 @@ import { ExpandedFeatureClient as ExpandedFeatureClient_8bd635c2ba54ee263f17d0dd
 import { FullscreenFeatureClient as FullscreenFeatureClient_2fab1eecc17be0d2386de4166e3fe058 } from '../../../plugins/lexical-fullscreen/client'
 import { LayoutsFeatureClient as LayoutsFeatureClient_4a775d2e303f102f103e110f960d1087 } from '../../../plugins/lexical-layouts/client'
 import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { default as default_9d8ae99b09992e9b77225054fb4c59b1 } from '@/fields/color-palette'
 import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
@@ -69,6 +70,7 @@ export const importMap = {
   "/plugins/lexical-fullscreen/client#FullscreenFeatureClient": FullscreenFeatureClient_2fab1eecc17be0d2386de4166e3fe058,
   "/plugins/lexical-layouts/client#LayoutsFeatureClient": LayoutsFeatureClient_4a775d2e303f102f103e110f960d1087,
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@/fields/color-palette#default": default_9d8ae99b09992e9b77225054fb4c59b1,
   "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1

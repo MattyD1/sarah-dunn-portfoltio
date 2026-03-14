@@ -8,7 +8,7 @@ export const Footer = async () => {
   const { title, contactInfo, socials, navItems } = footerData;
 
   return (
-    <footer className="flex flex-row mx-32 pt-16 justify-between mix-blend-difference">
+    <footer className="flex flex-row mx-32 pt-16 justify-between text-(--accent-twelve)">
       <div className="flex flex-col gap-4">
         <h1 className="text-base">{title}</h1>
         <p className="text-sm font-light tracking-wider">{contactInfo}</p>

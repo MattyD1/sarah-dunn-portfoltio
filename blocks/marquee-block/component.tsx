@@ -8,19 +8,26 @@ export const MarqueeBlock: React.FC<MarqueeBlockProps & { id?: string }> = (
   const { repeat, reversed, pausedOnHover, textArray } = props;
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+    <div
+      className="relative flex w-full flex-col items-center justify-center overflow-hidden"
+      style={{
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)",
+        maskImage:
+          "linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)",
+      }}
+    >
       {Array.isArray(textArray) && textArray.length > 0 && (
         <Marquee
           reverse={reversed === "true"}
           pauseOnHover={pausedOnHover || undefined}
           repeat={repeat}
-          className="mix-blend-difference"
         >
           {textArray.map(({ text }, i) => (
             <p
               key={i}
               className={cn(
-                "text-4xl font-light tracking-wider text-white/25 px-8",
+                "text-4xl font-light tracking-wider text-(--accent-seven) px-8",
               )}
             >
               {text}
@@ -28,8 +35,8 @@ export const MarqueeBlock: React.FC<MarqueeBlockProps & { id?: string }> = (
           ))}
         </Marquee>
       )}
-      <div className="from-[#C4C9C9] pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r"></div>
-      <div className="from-[#C4C9C9] pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l"></div>
+      {/*<div className="from-[#C4C9C9] pointer-events-none absolute inset-y-0 left-0 w-1/4 mask-linear-to-r"></div>
+      <div className="from-[#C4C9C9] pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l"></div>*/}
     </div>
   );
 };

@@ -198,14 +198,27 @@ export interface Page {
     | ContentBlock
     | LinksBlock
   )[];
+  theme: {
+    accentColor?: string | null;
+    grayColor?: string | null;
+    backgroundColor?: string | null;
+    dark: boolean;
+    palette?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
   meta?: {};
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
   slug: string;
-  pageColor?: string | null;
-  dark: boolean;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -664,11 +677,18 @@ export interface PagesSelect<T extends boolean = true> {
         contentBlock?: T | ContentBlockSelect<T>;
         linksBlock?: T | LinksBlockSelect<T>;
       };
+  theme?:
+    | T
+    | {
+        accentColor?: T;
+        grayColor?: T;
+        backgroundColor?: T;
+        dark?: T;
+        palette?: T;
+      };
   meta?: T | {};
   generateSlug?: T;
   slug?: T;
-  pageColor?: T;
-  dark?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

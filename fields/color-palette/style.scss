@@ -1,0 +1,98 @@
+.color-palette {
+    &__main {
+        margin-top: 1rem;
+    }
+
+    &__input-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(36px, 1fr));
+        gap: 0.5rem;
+        max-width: 100%;
+    }
+
+    &__color-input {
+        width: 100%;
+        height: 42px;
+        border: 2px solid var(--theme-elevation-150, #e0e0e0);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--style-radius-s);
+
+        &:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px
+                var(--theme-elevation-200, rgba(0, 0, 0, 0.05));
+            border-color: var(--theme-elevation-400, #999);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: var(--theme-elevation-500, #4a90e2);
+            box-shadow: 0 0 0 3px
+                var(--theme-elevation-100, rgba(74, 144, 226, 0.2));
+        }
+
+        &:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+
+            &:hover {
+                transform: none;
+                box-shadow: none;
+                border-color: var(--theme-elevation-150, #e0e0e0);
+            }
+        }
+
+        &--active {
+            border-color: var(--theme-elevation-500, #4a90e2);
+            border-width: 3px;
+            box-shadow: 0 0 0 3px
+                var(--theme-elevation-100, rgba(74, 144, 226, 0.2));
+        }
+
+        // Remove default color input styling
+        &::-webkit-color-swatch-wrapper {
+            padding: 0;
+            border-radius: var(--style-radius-s);
+        }
+
+        &::-webkit-color-swatch {
+            border: none;
+        }
+
+        &::-moz-color-swatch {
+            border: none;
+            border-radius: var(--style-radius-s);
+        }
+    }
+}
+
+.color-usage-range {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+
+    &__text {
+        text-align: center;
+        color: var(--theme-elevation-500);
+    }
+
+    &__border {
+        height: 0.5;
+        width: 100%;
+        background-image: linear-gradient(
+            to right,
+            transparent,
+            var(--theme-elevation-150) 30%,
+            var(--theme-elevation-150) 70%,
+            transparent
+        );
+    }
+}

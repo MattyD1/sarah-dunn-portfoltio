@@ -9,7 +9,7 @@ export const LinksBlock: React.FC<LinksBlockProps & { id?: string }> = (
 
   return (
     <div id={`block-${id}`}>
-      <h2 className="text-5xl max-w-[12ch] font-light capitalize tracking-wider mix-blend-difference mb-9">
+      <h2 className="text-5xl max-w-[12ch] font-light capitalize tracking-wider mb-9">
         {heading}
       </h2>
       <div className="grid grid-cols-5 gap-24">

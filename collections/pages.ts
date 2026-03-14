@@ -9,6 +9,7 @@ import { MediaBlock } from "@/blocks/media-block/config";
 import { ContentBlock } from "@/blocks/content-block/config";
 import { LinksBlock } from "@/blocks/links-block/configs";
 import { colorField } from "@/fields/color-picker/field";
+import { paletteField } from "@/fields/color-palette/field";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",
@@ -60,6 +61,50 @@ export const Pages: CollectionConfig<"pages"> = {
           label: "Content",
         },
         {
+          name: "theme",
+          label: "Theme",
+          fields: [
+            {
+              type: "group",
+              label: "Theme Options",
+              fields: [
+                colorField({
+                  name: "accentColor",
+                  colorPresets: [],
+                  overrides: (field) => ({
+                    ...field,
+                    label: "Accent",
+                  }),
+                }),
+                colorField({
+                  name: "grayColor",
+                  colorPresets: [],
+                  overrides: (field) => ({
+                    ...field,
+                    label: "Grey",
+                  }),
+                }),
+                colorField({
+                  name: "backgroundColor",
+                  colorPresets: [],
+                  overrides: (field) => ({
+                    ...field,
+                    label: "Background",
+                  }),
+                }),
+                {
+                  name: "dark",
+                  label: "Dark Page",
+                  type: "checkbox",
+                  defaultValue: false,
+                  required: true,
+                },
+              ],
+            },
+            paletteField(),
+          ],
+        },
+        {
           fields: [],
           name: "meta",
           label: "SEO",
@@ -67,27 +112,6 @@ export const Pages: CollectionConfig<"pages"> = {
       ],
     },
     slugField(),
-    colorField({
-      name: "pageColor",
-      colorPresets: [],
-      showTextInput: true,
-      overrides: (field) => ({
-        ...field,
-        admin: {
-          ...field.admin,
-          position: "sidebar",
-        },
-      }),
-    }),
-    {
-      name: "dark",
-      label: "Dark Page",
-      type: "checkbox",
-      required: true,
-      admin: {
-        position: "sidebar",
-      },
-    },
   ],
   versions: {
     drafts: {

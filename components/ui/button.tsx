@@ -10,9 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border rounded-full border-white/20 bg-transparent text-white hover:bg-white/10 mix-blend-difference tracking-wide",
+          "border rounded-full border-(--accent-six) bg-transparent text-(--accent-twelve) hover:bg-(--accent-three) hover:border-(--accent-eight) tracking-wide",
         link: "text-primary underline-offset-4 hover:underline",
-        icon: "-ml-3 hover:bg-white/10",
+        icon: "-ml-3 hover:bg-(--accent-three)",
       },
       size: {
         clear: "",
