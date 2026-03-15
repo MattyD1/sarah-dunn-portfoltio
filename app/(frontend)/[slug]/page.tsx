@@ -7,6 +7,7 @@ import { RenderHero } from "@/heros/render-hero";
 import { RenderBlocks } from "@/blocks/render-blocks";
 import { Footer } from "@/globals/footer/component";
 import { ColorPalette } from "@/fields/color-palette/types";
+import { Cursor } from "@/components/cursor";
 
 type Args = {
   params: Promise<{ slug?: string }>;
@@ -118,6 +119,7 @@ export default async function Page({ params }: Args) {
         } as React.CSSProperties
       }
     >
+      <Cursor />
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />
       <Footer />

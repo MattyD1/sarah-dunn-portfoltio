@@ -16,7 +16,6 @@ import {
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./style.scss";
 import { ColorPickerProps } from "./types";
-import { generateRadixColors } from "radix-theme-generator";
 import { ColorPalette } from "../color-palette/types";
 
 const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
