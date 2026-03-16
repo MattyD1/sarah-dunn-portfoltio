@@ -10,11 +10,13 @@ import type { CollectionConfig } from "payload";
 import { slugField } from "payload";
 
 import { generatePreviewPath } from "@/lib/generate-preview-path";
+import { populatePublishedAt } from "@/hooks/populate-published-at";
+import { revalidateDelete, revalidatePage } from "@/hooks/revalidate-page";
 import { adminOnly } from "@/access/admin-only";
 import { adminOrPublished } from "@/access/admin-or-published";
 import { ArchiveBlock } from "@/blocks/archive-block/config";
 import { ContentBlock } from "@/blocks/content-block/config";
-import { LinksBlock } from "@/blocks/links-block/configs";
+import { LinksBlock } from "@/blocks/links-block/config";
 import { MediaBlock } from "@/blocks/media-block/config";
 import { paletteField } from "@/fields/color-palette/field";
 import { colorField } from "@/fields/color-picker/field";
@@ -156,6 +158,11 @@ export const Pages: CollectionConfig<"pages"> = {
     },
     slugField(),
   ],
+  hooks: {
+    afterChange: [revalidatePage],
+    afterDelete: [revalidateDelete],
+    beforeChange: [populatePublishedAt],
+  },
   versions: {
     drafts: {
       autosave: {

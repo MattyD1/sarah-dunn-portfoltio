@@ -1,3 +1,4 @@
+import { customRowLabel } from "@/components/array-row-label/utility";
 import { Block } from "payload";
 
 export const MarqueeBlock: Block = {
@@ -51,6 +52,9 @@ export const MarqueeBlock: Block = {
           label: false,
         },
       ],
+      admin: {
+        ...customRowLabel({fieldToUse: 'text'})
+      }
     },
   ],
 };

@@ -1,11 +1,22 @@
 import {
-  EXPERIMENTAL_TableFeature,
+  AlignFeature,
+  BoldFeature,
   FixedToolbarFeature,
+  IndentFeature,
+  ItalicFeature,
   lexicalEditor,
+  ParagraphFeature,
+  StrikethroughFeature,
+  SubscriptFeature,
+  SuperscriptFeature,
+  UnderlineFeature,
 } from "@payloadcms/richtext-lexical";
 import { Field } from "payload";
 
 import { linkGroup } from "@/fields/link-group";
+import { ExpandedFeature } from "@/plugins/lexical-expanded";
+import { FullscreenFeature } from "@/plugins/lexical-fullscreen";
+import { LayoutsFeature } from "@/plugins/lexical-layouts";
 
 export const hero: Field = {
   name: "hero",
@@ -31,15 +42,25 @@ export const hero: Field = {
       name: "richText",
       type: "richText",
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
+        features: () => {
           return [
-            ...rootFeatures,
+            BoldFeature(),
+            ItalicFeature(),
+            UnderlineFeature(),
+            StrikethroughFeature(),
+            SubscriptFeature(),
+            SuperscriptFeature(),
+            ParagraphFeature(),
+            AlignFeature(),
+            IndentFeature(),
             FixedToolbarFeature(),
-            EXPERIMENTAL_TableFeature(),
+            LayoutsFeature(),
+            FullscreenFeature(),
+            ExpandedFeature(),
           ];
         },
       }),
-      label: false,
+      label: "Heading",
     },
     linkGroup({
       overrides: {

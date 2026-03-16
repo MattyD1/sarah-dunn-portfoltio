@@ -1,6 +1,7 @@
 import { GlobalConfig } from "payload";
 
 import { linkGroup } from "@/fields/link-group";
+import { customRowLabel } from "@/components/array-row-label/utility";
 
 export const Footer: GlobalConfig = {
   slug: "footer",
@@ -45,6 +46,9 @@ export const Footer: GlobalConfig = {
           },
         }),
       ],
+      admin: {
+        ...customRowLabel({ fieldToUse: "groupName" }),
+      },
     },
   ],
 };

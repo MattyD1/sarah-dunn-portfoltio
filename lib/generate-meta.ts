@@ -23,9 +23,7 @@ export const generateMeta = async (args: {
   const { doc } = args || {};
 
   const ogImage = getImageURL(doc?.meta?.image);
-  const title = doc?.meta?.title
-    ? doc.meta.title + " | Sarah Dunn"
-    : "Sarah Dunn Art Portfolio";
+  const title = doc?.meta?.title ? doc.meta.title : "Sarah Dunn Art Portfolio";
 
   return {
     description: doc?.meta?.description,

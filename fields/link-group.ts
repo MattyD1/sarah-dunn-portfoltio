@@ -1,6 +1,7 @@
 import { ArrayField, Field } from "payload";
 
 import deepMerge from "@/lib/deepMerge";
+import { customRowLabel } from "@/components/array-row-label/utility";
 
 import { link, type LinkAppearances } from "./link";
 
@@ -23,6 +24,10 @@ export const linkGroup: LinkGroupType = ({
     ],
     admin: {
       initCollapsed: true,
+      ...customRowLabel({
+        fieldToUse: "link.label",
+        fallbackLabel: "{{link.icon}}",
+      }),
     },
   };
 

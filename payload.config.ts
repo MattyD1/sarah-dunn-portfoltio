@@ -1,7 +1,6 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import { vercelPostgresAdapter } from "@payloadcms/db-vercel-postgres";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { s3Storage } from "@payloadcms/storage-s3";
 import { buildConfig } from "payload";
 import sharp from "sharp";
@@ -10,6 +9,7 @@ import { Media } from "./collections/media";
 import { Pages } from "./collections/pages";
 import { Products } from "./collections/products";
 import { Users } from "./collections/users";
+import { defaultLexical } from "./fields/default-editor";
 import { Footer } from "./globals/footer/config";
 import { plugins } from "./plugins/payload-plugins";
 
@@ -45,7 +45,7 @@ export default buildConfig({
       ],
     },
   },
-  editor: lexicalEditor(),
+  editor: defaultLexical,
   db: vercelPostgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || "",
