@@ -1,5 +1,7 @@
-import deepMerge from "@/lib/deepMerge";
 import { Block, Field, GroupField } from "payload";
+
+import deepMerge from "@/lib/deepMerge";
+
 import { iconField } from "./lucide-icon-picker/field";
 
 export type LinkAppearances = "default" | "icon";
@@ -128,7 +130,7 @@ export const link: LinkType = ({
 
     if (appearances) {
       appearanceOptionToUse = appearances.map(
-        (appearance) => appearanceOptions[appearance],
+        (appearance) => appearanceOptions[appearance]
       );
     }
 
@@ -144,7 +146,7 @@ export const link: LinkType = ({
       },
       iconField({
         name: "icon",
-      }),
+      })
     );
   }
 

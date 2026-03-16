@@ -2,7 +2,7 @@ import { User } from "@/payload-types";
 
 export const checkRole = (
   allRoles: User["roles"] = [],
-  user?: User | null,
+  user?: User | null
 ): boolean => {
   if (user && allRoles) {
     return allRoles.some((role) => {

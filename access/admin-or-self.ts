@@ -1,4 +1,5 @@
 import type { Access } from "payload";
+
 import { checkRole } from "./utils";
 
 export const adminOrSelf: Access = ({ req: { user } }) => {

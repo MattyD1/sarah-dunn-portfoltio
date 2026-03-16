@@ -1,6 +1,7 @@
-import { Media } from "@/components/media";
-import { cn } from "@/lib/utils";
 import { Product } from "@/payload-types";
+
+import { cn } from "@/lib/utils";
+import { Media } from "@/components/media";
 
 type Props = {
   products: CardProductData[];
@@ -13,7 +14,7 @@ export const CollectionArchive: React.FC<Props> = (props) => {
   return (
     <div className={cn("container")}>
       <div>
-        <div className="grid grid-cols-3 gap-y-4 gap-x-4">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-4">
           {products?.map((result, index) => {
             if (typeof result === "object" && result !== null) {
               return (
@@ -40,20 +41,20 @@ const Card: React.FC<{ doc?: CardProductData; backgroundColor: string }> = ({
   const { featureImage } = doc || {};
 
   return (
-    <article className="w-full h-full min-h-full relative">
+    <article className="relative h-full min-h-full w-full">
       <div
-        className="w-full h-full rounded-2xl p-6"
+        className="h-full w-full rounded-2xl p-6"
         style={{
           backgroundColor: backgroundColor,
         }}
       >
-        <div className="aspect-square flex place-content-center items-center w-full relative overflow-visible">
+        <div className="relative flex aspect-square w-full place-content-center items-center overflow-visible">
           {!featureImage && <div>No image</div>}
 
           {featureImage && typeof featureImage !== "string" && (
             <Media
               resource={featureImage}
-              className="w-full h-full absolute left-0 top-0"
+              className="absolute top-0 left-0 h-full w-full"
               pictureClassName="w-full h-full flex items-center justify-center"
               imgClassName="max-w-full max-h-full h-auto w-auto object-fit-contain border-2 border-white rounded-lg shadow-image"
             />

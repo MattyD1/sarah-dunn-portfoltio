@@ -1,13 +1,16 @@
-import type { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+
 import "./globals.css";
-import { Providers } from "@/providers";
+
 import { draftMode } from "next/headers";
-import { cn } from "@/lib/utils";
+import { Providers } from "@/providers";
 import { GeistSans } from "geist/font/sans";
-import { AdminBar } from "@/components/admin-bar";
+
 import { getServerSideURL } from "@/lib/get-url";
 import { mergeOpenGraph } from "@/lib/merge-open-graph";
+import { cn } from "@/lib/utils";
+import { AdminBar } from "@/components/admin-bar";
 
 export default async function RootLayout({
   children,

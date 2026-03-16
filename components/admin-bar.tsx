@@ -1,16 +1,15 @@
 "use client";
 
-import React from "react";
-import { useState } from "react";
-import { getClientSideURL } from "@/lib/get-url";
-import { cn } from "@/lib/utils";
+import React, { useState } from "react";
+import { useRouter, useSelectedLayoutSegments } from "next/navigation";
 import {
   PayloadAdminBar,
   type PayloadAdminBarProps,
   type PayloadMeUser,
 } from "@payloadcms/admin-bar";
-import { useSelectedLayoutSegments } from "next/navigation";
-import { useRouter } from "next/navigation";
+
+import { getClientSideURL } from "@/lib/get-url";
+import { cn } from "@/lib/utils";
 
 const collectionLabels = {
   pages: {
@@ -37,7 +36,7 @@ export const AdminBar: React.FC<{
 
   return (
     <div
-      className={cn("py-2 bg-black text-whtie", {
+      className={cn("text-whtie bg-black py-2", {
         block: show,
         hidden: !show,
       })}

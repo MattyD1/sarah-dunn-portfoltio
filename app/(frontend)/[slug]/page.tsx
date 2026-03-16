@@ -1,16 +1,17 @@
-import { getPayload } from "payload";
-import configPromise from "@payload-config";
-import { draftMode } from "next/headers";
 import { Metadata } from "next";
-import { generateMeta } from "@/lib/generate-meta";
+import { draftMode } from "next/headers";
 import { RenderHero } from "@/heros/render-hero";
-import { RenderBlocks } from "@/blocks/render-blocks";
-import { Footer } from "@/globals/footer/component";
-import { ColorPalette } from "@/fields/color-palette/types";
-import { Cursor } from "@/components/cursor";
-import { Redirects } from "@/components/redirects";
-import { LivePreviewListener } from "@/components/live-preview-listener";
+import configPromise from "@payload-config";
+import { getPayload } from "payload";
+
+import { generateMeta } from "@/lib/generate-meta";
 import { cn } from "@/lib/utils";
+import { RenderBlocks } from "@/blocks/render-blocks";
+import { ColorPalette } from "@/fields/color-palette/types";
+import { Footer } from "@/globals/footer/component";
+import { Cursor } from "@/components/cursor";
+import { LivePreviewListener } from "@/components/live-preview-listener";
+import { Redirects } from "@/components/redirects";
 
 type Args = {
   params: Promise<{ slug?: string }>;

@@ -1,12 +1,13 @@
 "use client";
 
-import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";
 import type { MediaBlock as MediaBlockProps } from "@/payload-types";
+import { motion, useScroll, useTransform } from "framer-motion";
+
 import { Media } from "@/components/media";
 
 export const MediaBlock: React.FC<MediaBlockProps & { id?: string }> = (
-  props,
+  props
 ) => {
   const { media } = props;
 
@@ -20,11 +21,11 @@ export const MediaBlock: React.FC<MediaBlockProps & { id?: string }> = (
   return (
     <div
       ref={container}
-      className="relative flex items-center justify-center h-screen overflow-hidden"
+      className="relative flex h-screen items-center justify-center overflow-hidden"
       style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
     >
       <div className="fixed top-[-10vh] left-0 h-[120vh] w-full">
-        <motion.div style={{ y }} className="relative w-full h-full bg-black">
+        <motion.div style={{ y }} className="relative h-full w-full bg-black">
           <Media
             resource={media}
             fill

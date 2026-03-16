@@ -1,10 +1,12 @@
-import { Page } from "@/payload-types";
 import { Fragment } from "react";
+import { Page } from "@/payload-types";
+
+import { BlockContainer } from "@/components/block-container";
+
 import { ArchiveBlock } from "./archive-block/component";
-import { MediaBlock } from "./media-block/component";
 import { ContentBlock } from "./content-block/component";
 import { LinksBlock } from "./links-block/component";
-import { BlockContainer } from "@/components/block-container";
+import { MediaBlock } from "./media-block/component";
 
 const blockComponents = {
   archiveBlock: ArchiveBlock,

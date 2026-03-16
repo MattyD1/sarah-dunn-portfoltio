@@ -2,7 +2,7 @@ import type { LexicalEditor } from "@payloadcms/richtext-lexical/lexical";
 
 const getLastMatchingAncestor = (
   element?: HTMLElement | null,
-  selector?: string,
+  selector?: string
 ): HTMLElement | null => {
   let lastMatchingAncestor = null;
   let currentElement = element?.parentElement;
@@ -29,7 +29,7 @@ export const toggleFullscreen = ({
   const richTextLexical = getLastMatchingAncestor(root, ".rich-text-lexical");
   const drawerContent = root?.closest(".drawer__content");
   const drawerContentChildren = drawerContent?.querySelector(
-    ".drawer__content-children",
+    ".drawer__content-children"
   );
 
   const enableFullscreen = () => {
@@ -75,11 +75,11 @@ export const toggleFullscreen = ({
     if (originalDrawerStyles) {
       drawerContent?.setAttribute(
         "style",
-        `${originalDrawerStyles}))); transition: none;`,
+        `${originalDrawerStyles}))); transition: none;`
       );
       setTimeout(
         () => drawerContent?.setAttribute("style", originalDrawerStyles),
-        150,
+        150
       );
     }
 

@@ -1,4 +1,5 @@
 import { JSXConverters } from "@payloadcms/richtext-lexical/react";
+
 import { SerializedExpandedContainerNode } from "../lexical-expanded/server";
 
 export const ExpandedJSXConverter: JSXConverters<SerializedExpandedContainerNode> =

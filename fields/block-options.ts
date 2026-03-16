@@ -1,5 +1,7 @@
 import { CollapsibleField, Field } from "payload";
+
 import deepMerge from "@/lib/deepMerge";
+
 import { colorField } from "./color-picker/field";
 
 type BlockOptionsType = (options?: {

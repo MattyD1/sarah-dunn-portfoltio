@@ -2,7 +2,7 @@ import { getClientSideURL } from "@/lib/get-url";
 
 export const getMediaUrl = (
   url: string | null | undefined,
-  cacheTag?: string | null,
+  cacheTag?: string | null
 ): string => {
   if (!url) return "";
 

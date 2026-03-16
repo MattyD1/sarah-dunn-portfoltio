@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export const Cursor: React.FC = () => {
   const size = 15;
@@ -33,7 +33,7 @@ export const Cursor: React.FC = () => {
   return (
     <div>
       <motion.div
-        className="fixed w-8 h-8 border border-(--accent-six) rounded-full pointer-events-none z-50"
+        className="pointer-events-none fixed z-50 h-8 w-8 rounded-full border border-(--accent-six)"
         style={{
           left: smoothMouse.x,
           top: smoothMouse.y,

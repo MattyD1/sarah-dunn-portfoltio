@@ -1,5 +1,4 @@
 import { JSONField } from "payload";
-import { ColorPalette } from "./types";
 
 export const paletteField = (): JSONField => {
   const baseField: JSONField = {

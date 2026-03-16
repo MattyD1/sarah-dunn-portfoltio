@@ -1,6 +1,7 @@
 import { TextField } from "payload";
-import { ColorPickerArgs } from "./types";
 import { text } from "payload/shared";
+
+import { ColorPickerArgs } from "./types";
 
 export const colorField = (options?: ColorPickerArgs): TextField => {
   const baseField: TextField = {

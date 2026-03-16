@@ -1,4 +1,4 @@
-"use client";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   FieldDescription,
   FieldError,
@@ -13,10 +13,11 @@ import {
   TextFieldClient,
   TextFieldClientProps,
 } from "payload";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+
 import "./style.scss";
-import { ColorPickerProps } from "./types";
+
 import { ColorPalette } from "../color-palette/types";
+import { ColorPickerProps } from "./types";
 
 const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
   path,
@@ -51,7 +52,7 @@ const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
         setValue(newValue);
       }, debounceDelay);
     },
-    [setValue, debounceDelay],
+    [setValue, debounceDelay]
   );
 
   // Cleanup debounce timer on unmount
@@ -161,7 +162,7 @@ const ColorPicker: React.FC<TextFieldClientProps & ColorPickerProps> = ({
 };
 
 export const ColorCell: React.FC<DefaultCellComponentProps<TextFieldClient>> = (
-  props,
+  props
 ) => {
   const { cellData, field } = props;
   const { i18n } = useTranslation();

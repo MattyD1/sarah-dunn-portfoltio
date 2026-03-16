@@ -1,17 +1,11 @@
 import "./index.scss";
 
+import { useEffect } from "react";
 import type {
   ElementNode,
   LexicalCommand,
   LexicalNode,
 } from "@payloadcms/richtext-lexical/lexical";
-
-import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext";
-import {
-  $findMatchingParent,
-  $insertNodeToNearestRoot,
-  mergeRegister,
-} from "@payloadcms/richtext-lexical/lexical/utils";
 import {
   $createParagraphNode,
   $getSelection,
@@ -24,7 +18,12 @@ import {
   KEY_ARROW_RIGHT_COMMAND,
   KEY_ARROW_UP_COMMAND,
 } from "@payloadcms/richtext-lexical/lexical";
-import { useEffect } from "react";
+import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext";
+import {
+  $findMatchingParent,
+  $insertNodeToNearestRoot,
+  mergeRegister,
+} from "@payloadcms/richtext-lexical/lexical/utils";
 
 import {
   $createExpandedContainerNode,
@@ -40,7 +39,7 @@ export function LayoutPlugin(): null {
   useEffect(() => {
     if (!editor.hasNodes([ExpandedContainerNode])) {
       throw new Error(
-        "ExpandedPlugin: ExpandedContainerNode is not registered on editor",
+        "ExpandedPlugin: ExpandedContainerNode is not registered on editor"
       );
     }
 
@@ -53,7 +52,7 @@ export function LayoutPlugin(): null {
       ) {
         const container = $findMatchingParent(
           selection.anchor.getNode(),
-          $isExpandedContainerNode,
+          $isExpandedContainerNode
         );
 
         if ($isExpandedContainerNode(container)) {
@@ -88,29 +87,29 @@ export function LayoutPlugin(): null {
       editor.registerCommand(
         KEY_ARROW_DOWN_COMMAND,
         () => $onEscape(false),
-        COMMAND_PRIORITY_LOW,
+        COMMAND_PRIORITY_LOW
       ),
       editor.registerCommand(
         KEY_ARROW_RIGHT_COMMAND,
         () => $onEscape(false),
-        COMMAND_PRIORITY_LOW,
+        COMMAND_PRIORITY_LOW
       ),
       editor.registerCommand(
         KEY_ARROW_UP_COMMAND,
         () => $onEscape(true),
-        COMMAND_PRIORITY_LOW,
+        COMMAND_PRIORITY_LOW
       ),
       editor.registerCommand(
         KEY_ARROW_LEFT_COMMAND,
         () => $onEscape(true),
-        COMMAND_PRIORITY_LOW,
+        COMMAND_PRIORITY_LOW
       ),
       editor.registerCommand(
         INSERT_EXPANDED_COMMAND,
         () => {
           editor.update(() => {
             const container = $createExpandedContainerNode().append(
-              $createParagraphNode(),
+              $createParagraphNode()
             );
 
             $insertNodeToNearestRoot(container);
@@ -119,8 +118,8 @@ export function LayoutPlugin(): null {
 
           return true;
         },
-        COMMAND_PRIORITY_EDITOR,
-      ),
+        COMMAND_PRIORITY_EDITOR
+      )
     );
   }, [editor]);
 

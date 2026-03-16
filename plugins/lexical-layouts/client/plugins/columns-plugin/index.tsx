@@ -1,6 +1,12 @@
 import "./index.scss";
 
+import React, { useEffect } from "react";
 import { PluginComponent } from "@payloadcms/richtext-lexical";
+import {
+  FieldsDrawer,
+  useEditorConfigContext,
+  useLexicalDrawer,
+} from "@payloadcms/richtext-lexical/client";
 import {
   $getSelection,
   $isRangeSelection,
@@ -8,18 +14,13 @@ import {
   createCommand,
   LexicalCommand,
 } from "@payloadcms/richtext-lexical/lexical";
-import { formatDrawerSlug, useEditDepth } from "@payloadcms/ui";
-import React, { useEffect } from "react";
-import { INSERT_LAYOUT_COMMAND, LayoutPlugin } from "../layout-plugin";
-import {
-  FieldsDrawer,
-  useEditorConfigContext,
-  useLexicalDrawer,
-} from "@payloadcms/richtext-lexical/client";
 import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext";
+import { mergeRegister } from "@payloadcms/richtext-lexical/lexical/utils";
+import { formatDrawerSlug, useEditDepth } from "@payloadcms/ui";
+
 import { LayoutContainerNode } from "../../nodes/layout-container-node";
 import { LayoutItemNode } from "../../nodes/layout-item-node";
-import { mergeRegister } from "@payloadcms/richtext-lexical/lexical/utils";
+import { INSERT_LAYOUT_COMMAND, LayoutPlugin } from "../layout-plugin";
 
 export const OPEN_LAYOUTS_DRAWER_COMMAND: LexicalCommand<object> =
   createCommand("OPEN_EMBED_DRAWER_COMMAND");
@@ -42,7 +43,7 @@ export const ColumnsPlugin: PluginComponent = () => {
   useEffect(() => {
     if (!editor.hasNodes([LayoutContainerNode, LayoutItemNode])) {
       throw new Error(
-        "LayoutPlugin: LayoutContainerNode, or LayoutItemNode is not registered on editor",
+        "LayoutPlugin: LayoutContainerNode, or LayoutItemNode is not registered on editor"
       );
     }
 
@@ -64,8 +65,8 @@ export const ColumnsPlugin: PluginComponent = () => {
           }
           return true;
         },
-        COMMAND_PRIORITY_EDITOR,
-      ),
+        COMMAND_PRIORITY_EDITOR
+      )
     );
   }, [editor, toggleDrawer]);
 

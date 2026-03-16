@@ -1,15 +1,15 @@
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
-import { buildConfig } from "payload";
 import { fileURLToPath } from "url";
-import sharp from "sharp";
 import { vercelPostgresAdapter } from "@payloadcms/db-vercel-postgres";
-
-import { Pages } from "./collections/pages";
-import { Users } from "./collections/users";
-import { Media } from "./collections/media";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { s3Storage } from "@payloadcms/storage-s3";
+import { buildConfig } from "payload";
+import sharp from "sharp";
+
+import { Media } from "./collections/media";
+import { Pages } from "./collections/pages";
 import { Products } from "./collections/products";
+import { Users } from "./collections/users";
 import { Footer } from "./globals/footer/config";
 import { plugins } from "./plugins/payload-plugins";
 

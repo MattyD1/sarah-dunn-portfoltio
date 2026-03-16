@@ -4,6 +4,7 @@ import {
 } from "@payloadcms/richtext-lexical";
 import { SerializedLexicalNode } from "@payloadcms/richtext-lexical/lexical";
 import { Config, Field, FieldSchemaMap, sanitizeFields } from "payload";
+
 import type { LayoutContainerNode as _SerializedLayoutContainerNode } from "../client/nodes/layout-container-node";
 import type { LayoutItemNode as _SerializedLayoutItemNode } from "../client/nodes/layout-item-node";
 

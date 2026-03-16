@@ -2,7 +2,7 @@ import * as RadixColors from "@radix-ui/colors";
 import BezierEasing from "bezier-easing";
 import Color from "colorjs.io";
 
-import { ArrayOf12, grayScaleNames, scaleNames, ColorPalette } from "./types";
+import { ArrayOf12, ColorPalette, grayScaleNames, scaleNames } from "./types";
 
 const arrayOf12 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
 
@@ -10,36 +10,36 @@ export const lightColors = Object.fromEntries(
   scaleNames.map((scaleName) => [
     scaleName,
     Object.values(RadixColors[`${scaleName}P3`]).map((str) =>
-      new Color(str).to("oklch"),
+      new Color(str).to("oklch")
     ),
-  ]),
+  ])
 ) as Record<(typeof scaleNames)[number], ArrayOf12<Color>>;
 
 const darkColors = Object.fromEntries(
   scaleNames.map((scaleName) => [
     scaleName,
     Object.values(RadixColors[`${scaleName}DarkP3`]).map((str) =>
-      new Color(str).to("oklch"),
+      new Color(str).to("oklch")
     ),
-  ]),
+  ])
 ) as Record<(typeof scaleNames)[number], ArrayOf12<Color>>;
 
 const lightGrayColors = Object.fromEntries(
   grayScaleNames.map((scaleName) => [
     scaleName,
     Object.values(RadixColors[`${scaleName}P3`]).map((str) =>
-      new Color(str).to("oklch"),
+      new Color(str).to("oklch")
     ),
-  ]),
+  ])
 ) as Record<(typeof grayScaleNames)[number], ArrayOf12<Color>>;
 
 const darkGrayColors = Object.fromEntries(
   grayScaleNames.map((scaleName) => [
     scaleName,
     Object.values(RadixColors[`${scaleName}DarkP3`]).map((str) =>
-      new Color(str).to("oklch"),
+      new Color(str).to("oklch")
     ),
-  ]),
+  ])
 ) as Record<(typeof grayScaleNames)[number], ArrayOf12<Color>>;
 
 export const generatePalette = ({
@@ -64,7 +64,7 @@ export const generatePalette = ({
   const grayScaleColors = getScaleFromColor(
     grayBaseColor,
     grayScales,
-    backgroundColor,
+    backgroundColor
   );
 
   const accentBaseColor = new Color(args.accent).to("oklch");
@@ -72,7 +72,7 @@ export const generatePalette = ({
   let accentScaleColors = getScaleFromColor(
     accentBaseColor,
     allScales,
-    backgroundColor,
+    backgroundColor
   );
 
   // Enforce srgb for the background color
@@ -82,7 +82,7 @@ export const generatePalette = ({
   const accentBaseHex = accentBaseColor.to("srgb").toString({ format: "hex" });
   if (accentBaseHex === "#000" || accentBaseHex === "#fff") {
     accentScaleColors = grayScaleColors.map((color) =>
-      color.clone(),
+      color.clone()
     ) as ArrayOf12<Color>;
   }
 
@@ -95,32 +95,32 @@ export const generatePalette = ({
   accentScaleColors[10].coords[1] = Math.min(
     Math.max(
       accentScaleColors[8].coords[1] ?? 0,
-      accentScaleColors[7].coords[1] ?? 0,
+      accentScaleColors[7].coords[1] ?? 0
     ),
-    accentScaleColors[10].coords[1] ?? 0,
+    accentScaleColors[10].coords[1] ?? 0
   );
   accentScaleColors[11].coords[1] = Math.min(
     Math.max(
       accentScaleColors[8].coords[1] ?? 0,
-      accentScaleColors[7].coords[1] ?? 0,
+      accentScaleColors[7].coords[1] ?? 0
     ),
-    accentScaleColors[11].coords[1] ?? 0,
+    accentScaleColors[11].coords[1] ?? 0
   );
 
   const accentScaleHex = accentScaleColors.map((color) =>
-    color.to("srgb").toString({ format: "hex" }),
+    color.to("srgb").toString({ format: "hex" })
   ) as ArrayOf12<string>;
 
   const accentScaleWideGamut = accentScaleColors.map(
-    toOklchString,
+    toOklchString
   ) as ArrayOf12<string>;
 
   const grayScaleHex = grayScaleColors.map((color) =>
-    color.to("srgb").toString({ format: "hex" }),
+    color.to("srgb").toString({ format: "hex" })
   ) as ArrayOf12<string>;
 
   const grayScaleWideGamut = grayScaleColors.map(
-    toOklchString,
+    toOklchString
   ) as ArrayOf12<string>;
 
   const accentSurfaceHex =
@@ -153,7 +153,7 @@ export const generatePalette = ({
 
 function getStep9Colors(
   scale: ArrayOf12<Color>,
-  accentBaseColor: Color,
+  accentBaseColor: Color
 ): [Color, Color] {
   const referenceBackgroundColor = scale[0];
   const distance = accentBaseColor.deltaEOK(referenceBackgroundColor) * 100;
@@ -201,7 +201,7 @@ function getButtonHoverColor(source: Color, scales: ArrayOf12<Color>[]) {
 function getScaleFromColor(
   source: Color,
   scales: Record<string, ArrayOf12<Color>>,
-  backgroundColor: Color,
+  backgroundColor: Color
 ) {
   const allColors: { scale: string; color: Color; distance: number }[] = [];
 
@@ -217,7 +217,7 @@ function getScaleFromColor(
   // Remove non-unique scales
   const closestColors = allColors.filter(
     (color, i, arr) =>
-      i === arr.findIndex((value) => value.scale === color.scale),
+      i === arr.findIndex((value) => value.scale === color.scale)
   );
 
   // If the next two closest colors are both grays, remove the second one until it’s not a gray anymore.
@@ -226,7 +226,7 @@ function getScaleFromColor(
   // closest color if it’s also a gray.
   const grayScaleNamesStr = grayScaleNames as readonly string[];
   const allAreGrays = closestColors.every((color) =>
-    grayScaleNamesStr.includes(color.scale),
+    grayScaleNamesStr.includes(color.scale)
   );
   if (!allAreGrays && grayScaleNamesStr.includes(closestColors[0].scale)) {
     while (grayScaleNamesStr.includes(closestColors[1].scale)) {
@@ -306,7 +306,7 @@ function getScaleFromColor(
   const scaleA = scales[colorA.scale];
   const scaleB = scales[colorB.scale];
   const scale = arrayOf12.map((i) =>
-    new Color(Color.mix(scaleA[i], scaleB[i], ratio)).to("oklch"),
+    new Color(Color.mix(scaleA[i], scaleB[i], ratio)).to("oklch")
   ) as ArrayOf12<Color>;
 
   // Get the closest color from the pre-mixed scale we created
@@ -321,7 +321,7 @@ function getScaleFromColor(
   scale.forEach((color) => {
     color.coords[1] = Math.min(
       (source.coords[1] ?? 0) * 1.5,
-      (color.coords[1] ?? 0) * ratioC,
+      (color.coords[1] ?? 0) * ratioC
     );
     color.coords[2] = source.coords[2];
   });
@@ -331,13 +331,13 @@ function getScaleFromColor(
     const lightnessScale = scale.map(({ coords }) => coords[0] ?? 0);
     const backgroundL = Math.max(
       0,
-      Math.min(1, backgroundColor.coords[0] ?? 0),
+      Math.min(1, backgroundColor.coords[0] ?? 0)
     );
     const newLightnessScale = transposeProgressionStart(
       backgroundL,
       // Add white as the first "step" of the light scale
       [1, ...lightnessScale],
-      lightModeEasing,
+      lightModeEasing
     );
 
     // Remove the step we added
@@ -355,7 +355,7 @@ function getScaleFromColor(
   const referenceBackgroundColorL = scale[0].coords[0];
   const backgroundColorL = Math.max(
     0,
-    Math.min(1, backgroundColor.coords[0] ?? 0),
+    Math.min(1, backgroundColor.coords[0] ?? 0)
   );
 
   // If background is lighter than step 0, we want to gradually change the easing to linear
@@ -375,7 +375,7 @@ function getScaleFromColor(
   const newLightnessScale = transposeProgressionStart(
     backgroundL,
     lightnessScale,
-    ease,
+    ease
   );
 
   newLightnessScale.forEach((lightness, i) => {
@@ -389,6 +389,7 @@ function getTextColor(background: Color) {
   const white = new Color("oklch", [1, 0, 0]);
 
   if (Math.abs(white.contrastAPCA(background)) < 40) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [L, C, H] = background.coords;
     return new Color("oklch", [0.25, Math.max(0.08 * (C ?? 0), 0.04), H]);
   }
@@ -404,7 +405,7 @@ function getAlphaColor(
   backgroundRgb: number[],
   rgbPrecision: number,
   alphaPrecision: number,
-  targetAlpha?: number,
+  targetAlpha?: number
 ) {
   const [tr, tg, tb] = targetRgb.map((c) => Math.round(c * rgbPrecision));
   const [br, bg, bb] = backgroundRgb.map((c) => Math.round(c * rgbPrecision));
@@ -439,7 +440,7 @@ function getAlphaColor(
   const alphaB = (tb - bb) / (desiredRgb - bb);
 
   const isPureGray = [alphaR, alphaG, alphaB].every(
-    (alpha) => alpha === alphaR,
+    (alpha) => alpha === alphaR
   );
 
   // No need for precision gymnastics with pure grays, and we can get cleaner output
@@ -512,7 +513,7 @@ function blendAlpha(
   foreground: number,
   alpha: number,
   background: number,
-  round = true,
+  round = true
 ) {
   if (round) {
     return (
@@ -526,7 +527,7 @@ function blendAlpha(
 function getAlphaColorSrgb(
   targetColor: string,
   backgroundColor: string,
-  targetAlpha?: number,
+  targetAlpha?: number
 ) {
   const targetRgb = new Color(targetColor).to("srgb").coords as number[];
   const backgroundRbg = new Color(backgroundColor).to("srgb")
@@ -536,7 +537,7 @@ function getAlphaColorSrgb(
     backgroundRbg,
     255,
     255,
-    targetAlpha,
+    targetAlpha
   );
 
   return formatHex(new Color("srgb", [r, g, b], a).toString({ format: "hex" }));
@@ -545,7 +546,7 @@ function getAlphaColorSrgb(
 function getAlphaColorP3(
   targetColor: string,
   backgroundColor: string,
-  targetAlpha?: number,
+  targetAlpha?: number
 ) {
   const targetRgb = new Color(targetColor).to("p3").coords as number[];
   const backgroundRgb = new Color(targetColor).to("p3").coords as number[];
@@ -557,7 +558,7 @@ function getAlphaColorP3(
     // rounded to 255 integers too. Is the browser using 0-255 rather than 0-1 under the hood for P3 too?
     255,
     1000,
-    targetAlpha,
+    targetAlpha
   );
 
   return (
@@ -600,7 +601,7 @@ const lightModeEasing = [0, 2, 0, 2] as [number, number, number, number];
 function transposeProgressionStart(
   to: number,
   arr: number[],
-  curve: [number, number, number, number],
+  curve: [number, number, number, number]
 ) {
   return arr.map((n, i, arr) => {
     const lastIndex = arr.length - 1;

@@ -1,10 +1,11 @@
-import { linkGroup } from "@/fields/link-group";
 import {
   EXPERIMENTAL_TableFeature,
   FixedToolbarFeature,
   lexicalEditor,
 } from "@payloadcms/richtext-lexical";
 import { Field } from "payload";
+
+import { linkGroup } from "@/fields/link-group";
 
 export const hero: Field = {
   name: "hero",

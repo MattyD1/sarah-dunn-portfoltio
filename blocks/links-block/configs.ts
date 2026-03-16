@@ -1,6 +1,7 @@
+import { Block } from "payload";
+
 import { blockOptions } from "@/fields/block-options";
 import { linkGroup } from "@/fields/link-group";
-import { Block } from "payload";
 
 export const LinksBlock: Block = {
   slug: "linksBlock",

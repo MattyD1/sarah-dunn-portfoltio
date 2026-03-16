@@ -13,53 +13,53 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | 'Pacific/Midway'
-  | 'Pacific/Niue'
-  | 'Pacific/Honolulu'
-  | 'Pacific/Rarotonga'
-  | 'America/Anchorage'
-  | 'Pacific/Gambier'
-  | 'America/Los_Angeles'
-  | 'America/Tijuana'
-  | 'America/Denver'
-  | 'America/Phoenix'
-  | 'America/Chicago'
-  | 'America/Guatemala'
-  | 'America/New_York'
-  | 'America/Bogota'
-  | 'America/Caracas'
-  | 'America/Santiago'
-  | 'America/Buenos_Aires'
-  | 'America/Sao_Paulo'
-  | 'Atlantic/South_Georgia'
-  | 'Atlantic/Azores'
-  | 'Atlantic/Cape_Verde'
-  | 'Europe/London'
-  | 'Europe/Berlin'
-  | 'Africa/Lagos'
-  | 'Europe/Athens'
-  | 'Africa/Cairo'
-  | 'Europe/Moscow'
-  | 'Asia/Riyadh'
-  | 'Asia/Dubai'
-  | 'Asia/Baku'
-  | 'Asia/Karachi'
-  | 'Asia/Tashkent'
-  | 'Asia/Calcutta'
-  | 'Asia/Dhaka'
-  | 'Asia/Almaty'
-  | 'Asia/Jakarta'
-  | 'Asia/Bangkok'
-  | 'Asia/Shanghai'
-  | 'Asia/Singapore'
-  | 'Asia/Tokyo'
-  | 'Asia/Seoul'
-  | 'Australia/Brisbane'
-  | 'Australia/Sydney'
-  | 'Pacific/Guam'
-  | 'Pacific/Noumea'
-  | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | "Pacific/Midway"
+  | "Pacific/Niue"
+  | "Pacific/Honolulu"
+  | "Pacific/Rarotonga"
+  | "America/Anchorage"
+  | "Pacific/Gambier"
+  | "America/Los_Angeles"
+  | "America/Tijuana"
+  | "America/Denver"
+  | "America/Phoenix"
+  | "America/Chicago"
+  | "America/Guatemala"
+  | "America/New_York"
+  | "America/Bogota"
+  | "America/Caracas"
+  | "America/Santiago"
+  | "America/Buenos_Aires"
+  | "America/Sao_Paulo"
+  | "Atlantic/South_Georgia"
+  | "Atlantic/Azores"
+  | "Atlantic/Cape_Verde"
+  | "Europe/London"
+  | "Europe/Berlin"
+  | "Africa/Lagos"
+  | "Europe/Athens"
+  | "Africa/Cairo"
+  | "Europe/Moscow"
+  | "Asia/Riyadh"
+  | "Asia/Dubai"
+  | "Asia/Baku"
+  | "Asia/Karachi"
+  | "Asia/Tashkent"
+  | "Asia/Calcutta"
+  | "Asia/Dhaka"
+  | "Asia/Almaty"
+  | "Asia/Jakarta"
+  | "Asia/Bangkok"
+  | "Asia/Shanghai"
+  | "Asia/Singapore"
+  | "Asia/Tokyo"
+  | "Asia/Seoul"
+  | "Australia/Brisbane"
+  | "Australia/Sydney"
+  | "Pacific/Guam"
+  | "Pacific/Noumea"
+  | "Pacific/Auckland"
+  | "Pacific/Fiji";
 
 export interface Config {
   auth: {
@@ -71,11 +71,11 @@ export interface Config {
     users: User;
     media: Media;
     products: Product;
-    'payload-kv': PayloadKv;
-    'payload-jobs': PayloadJob;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
+    "payload-kv": PayloadKv;
+    "payload-jobs": PayloadJob;
+    "payload-locked-documents": PayloadLockedDocument;
+    "payload-preferences": PayloadPreference;
+    "payload-migrations": PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
@@ -83,11 +83,17 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
-    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
+    "payload-jobs": PayloadJobsSelect<false> | PayloadJobsSelect<true>;
+    "payload-locked-documents":
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
+    "payload-preferences":
+      | PayloadPreferencesSelect<false>
+      | PayloadPreferencesSelect<true>;
+    "payload-migrations":
+      | PayloadMigrationsSelect<false>
+      | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: number;
@@ -141,7 +147,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact';
+    type: "none" | "highImpact";
     richText?: {
       root: {
         type: string;
@@ -150,8 +156,8 @@ export interface Page {
           version: number;
           [k: string]: unknown;
         }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        direction: ("ltr" | "rtl") | null;
+        format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
         indent: number;
         version: number;
       };
@@ -160,10 +166,10 @@ export interface Page {
     links?:
       | {
           link: {
-            type?: ('reference' | 'custom') | null;
+            type?: ("reference" | "custom") | null;
             newTab?: boolean | null;
             reference?: {
-              relationTo: 'pages';
+              relationTo: "pages";
               value: number | Page;
             } | null;
             url?: string | null;
@@ -171,7 +177,7 @@ export interface Page {
             /**
              * Choose how the link should re rendered.
              */
-            appearance: 'default';
+            appearance: "default";
             icon?: string | null;
           };
           id?: string | null;
@@ -184,15 +190,15 @@ export interface Page {
     | ArchiveBlock
     | {
         backgroundColor?: string | null;
-        gradient: 'linear' | 'radial' | 'none';
+        gradient: "linear" | "radial" | "none";
         /**
          * This value will adjust how the block is presented on the page
          */
-        container?: ('prose' | 'full' | 'default') | null;
+        container?: ("prose" | "full" | "default") | null;
         media: number | Media;
         id?: string | null;
         blockName?: string | null;
-        blockType: 'mediaBlock';
+        blockType: "mediaBlock";
       }
     | ContentBlock
     | LinksBlock
@@ -228,7 +234,7 @@ export interface Page {
   slug: string;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  _status?: ("draft" | "published") | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -313,19 +319,19 @@ export interface Media {
  */
 export interface ArchiveBlock {
   backgroundColor?: string | null;
-  gradient: 'linear' | 'radial' | 'none';
+  gradient: "linear" | "radial" | "none";
   /**
    * This value will adjust how the block is presented on the page
    */
-  container?: ('prose' | 'full' | 'default') | null;
+  container?: ("prose" | "full" | "default") | null;
   heading?: string | null;
   links?:
     | {
         link: {
-          type?: ('reference' | 'custom') | null;
+          type?: ("reference" | "custom") | null;
           newTab?: boolean | null;
           reference?: {
-            relationTo: 'pages';
+            relationTo: "pages";
             value: number | Page;
           } | null;
           url?: string | null;
@@ -333,23 +339,23 @@ export interface ArchiveBlock {
           /**
            * Choose how the link should re rendered.
            */
-          appearance: 'default';
+          appearance: "default";
           icon?: string | null;
         };
         id?: string | null;
       }[]
     | null;
-  populatedBy?: 'selection' | null;
+  populatedBy?: "selection" | null;
   archiveBackground?: string | null;
   selectedDocs?:
     | {
-        relationTo: 'products';
+        relationTo: "products";
         value: number | Product;
       }[]
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'archiveBlock';
+  blockType: "archiveBlock";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -367,8 +373,8 @@ export interface Product {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
       indent: number;
       version: number;
     };
@@ -383,11 +389,11 @@ export interface Product {
  */
 export interface ContentBlock {
   backgroundColor?: string | null;
-  gradient: 'linear' | 'radial' | 'none';
+  gradient: "linear" | "radial" | "none";
   /**
    * This value will adjust how the block is presented on the page
    */
-  container?: ('prose' | 'full' | 'default') | null;
+  container?: ("prose" | "full" | "default") | null;
   richText?: {
     root: {
       type: string;
@@ -396,8 +402,8 @@ export interface ContentBlock {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
       indent: number;
       version: number;
     };
@@ -405,7 +411,7 @@ export interface ContentBlock {
   } | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'contentBlock';
+  blockType: "contentBlock";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -413,20 +419,20 @@ export interface ContentBlock {
  */
 export interface LinksBlock {
   backgroundColor?: string | null;
-  gradient: 'linear' | 'radial' | 'none';
+  gradient: "linear" | "radial" | "none";
   /**
    * This value will adjust how the block is presented on the page
    */
-  container?: ('prose' | 'full' | 'default') | null;
+  container?: ("prose" | "full" | "default") | null;
   heading?: string | null;
   media: number | Media;
   links?:
     | {
         link: {
-          type?: ('reference' | 'custom') | null;
+          type?: ("reference" | "custom") | null;
           newTab?: boolean | null;
           reference?: {
-            relationTo: 'pages';
+            relationTo: "pages";
             value: number | Page;
           } | null;
           url?: string | null;
@@ -434,7 +440,7 @@ export interface LinksBlock {
           /**
            * Choose how the link should re rendered.
            */
-          appearance: 'default';
+          appearance: "default";
           icon?: string | null;
         };
         id?: string | null;
@@ -442,7 +448,7 @@ export interface LinksBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'linksBlock';
+  blockType: "linksBlock";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -451,7 +457,7 @@ export interface LinksBlock {
 export interface User {
   id: number;
   name?: string | null;
-  roles?: 'admin'[] | null;
+  roles?: "admin"[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -469,7 +475,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
-  collection: 'users';
+  collection: "users";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -540,7 +546,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'schedulePublish';
+        taskSlug: "inline" | "schedulePublish";
         taskID: string;
         input?:
           | {
@@ -560,7 +566,7 @@ export interface PayloadJob {
           | number
           | boolean
           | null;
-        state: 'failed' | 'succeeded';
+        state: "failed" | "succeeded";
         error?:
           | {
               [k: string]: unknown;
@@ -573,7 +579,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'schedulePublish') | null;
+  taskSlug?: ("inline" | "schedulePublish") | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -588,24 +594,24 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'pages';
+        relationTo: "pages";
         value: number | Page;
       } | null)
     | ({
-        relationTo: 'users';
+        relationTo: "users";
         value: number | User;
       } | null)
     | ({
-        relationTo: 'media';
+        relationTo: "media";
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'products';
+        relationTo: "products";
         value: number | Product;
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: number | User;
   };
   updatedAt: string;
@@ -618,7 +624,7 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: number;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: number | User;
   };
   key?: string | null;
@@ -999,10 +1005,10 @@ export interface Footer {
   socials?:
     | {
         link: {
-          type?: ('reference' | 'custom') | null;
+          type?: ("reference" | "custom") | null;
           newTab?: boolean | null;
           reference?: {
-            relationTo: 'pages';
+            relationTo: "pages";
             value: number | Page;
           } | null;
           url?: string | null;
@@ -1010,7 +1016,7 @@ export interface Footer {
           /**
            * Choose how the link should re rendered.
            */
-          appearance: 'icon';
+          appearance: "icon";
           icon?: string | null;
         };
         id?: string | null;
@@ -1022,10 +1028,10 @@ export interface Footer {
         links?:
           | {
               link?: {
-                type?: ('reference' | 'custom') | null;
+                type?: ("reference" | "custom") | null;
                 newTab?: boolean | null;
                 reference?: {
-                  relationTo: 'pages';
+                  relationTo: "pages";
                   value: number | Page;
                 } | null;
                 url?: string | null;
@@ -1095,7 +1101,7 @@ export interface CollectionsWidget {
   data?: {
     [k: string]: unknown;
   };
-  width: 'full';
+  width: "full";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1103,10 +1109,10 @@ export interface CollectionsWidget {
  */
 export interface TaskSchedulePublish {
   input: {
-    type?: ('publish' | 'unpublish') | null;
+    type?: ("publish" | "unpublish") | null;
     locale?: string | null;
     doc?: {
-      relationTo: 'pages';
+      relationTo: "pages";
       value: number | Page;
     } | null;
     global?: string | null;
@@ -1120,15 +1126,15 @@ export interface TaskSchedulePublish {
  */
 export interface MediaBlock {
   backgroundColor?: string | null;
-  gradient: 'linear' | 'radial' | 'none';
+  gradient: "linear" | "radial" | "none";
   /**
    * This value will adjust how the block is presented on the page
    */
-  container?: ('prose' | 'full' | 'default') | null;
+  container?: ("prose" | "full" | "default") | null;
   media: number | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'mediaBlock';
+  blockType: "mediaBlock";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1136,10 +1142,10 @@ export interface MediaBlock {
  */
 export interface LinkBlock {
   link: {
-    type?: ('reference' | 'custom') | null;
+    type?: ("reference" | "custom") | null;
     newTab?: boolean | null;
     reference?: {
-      relationTo: 'pages';
+      relationTo: "pages";
       value: number | Page;
     } | null;
     url?: string | null;
@@ -1147,19 +1153,19 @@ export interface LinkBlock {
     /**
      * Choose how the link should re rendered.
      */
-    appearance: 'default';
+    appearance: "default";
     icon?: string | null;
   };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'linkBlock';
+  blockType: "linkBlock";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MarqueeBlock".
  */
 export interface MarqueeBlock {
-  reversed: 'true' | 'false';
+  reversed: "true" | "false";
   pausedOnHover?: boolean | null;
   repeat: number;
   textArray?:
@@ -1170,7 +1176,7 @@ export interface MarqueeBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'marqueeBlock';
+  blockType: "marqueeBlock";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1180,7 +1186,6 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-
-declare module 'payload' {
+declare module "payload" {
   export interface GeneratedTypes extends Config {}
 }

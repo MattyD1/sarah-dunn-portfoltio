@@ -1,16 +1,13 @@
 "use client";
 
 import "./style.scss";
-import {
-  FieldLabel,
-  useField,
-  useFormFields,
-  useWatchForm,
-} from "@payloadcms/ui";
-import { Field, JSONField } from "payload";
-import { ColorPalette as ColorPaletteType } from "./types";
-import { generatePalette } from "./generate-palette";
+
 import { useEffect } from "react";
+import { FieldLabel, useField, useWatchForm } from "@payloadcms/ui";
+import { Field, JSONField } from "payload";
+
+import { generatePalette } from "./generate-palette";
+import { ColorPalette as ColorPaletteType } from "./types";
 
 type ColorPaletteProps = (options?: {
   overrides?: Partial<JSONField>;

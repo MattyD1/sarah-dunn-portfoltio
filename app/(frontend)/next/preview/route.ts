@@ -1,8 +1,8 @@
-import { NextRequest } from "next/server";
-import { CollectionSlug, getPayload, PayloadRequest } from "payload";
-import configPromise from "@payload-config";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
+import { NextRequest } from "next/server";
+import configPromise from "@payload-config";
+import { CollectionSlug, getPayload, PayloadRequest } from "payload";
 
 export async function GET(req: NextRequest): Promise<Response> {
   const payload = await getPayload({ config: configPromise });
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest): Promise<Response> {
   if (!path.startsWith("/")) {
     return new Response(
       "This endpoint can only be used for relative previews",
-      { status: 500 },
+      { status: 500 }
     );
   }
 

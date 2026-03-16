@@ -1,4 +1,8 @@
-import { cn } from "@/lib/utils";
+import {
+  LinkBlock,
+  MarqueeBlock as MarqueeBlockProps,
+  MediaBlock as MediaBlockProps,
+} from "@/payload-types";
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
@@ -8,18 +12,17 @@ import {
   JSXConvertersFunction,
   RichText as PayloadRichText,
 } from "@payloadcms/richtext-lexical/react";
-import { CMSLink } from "./link";
-import {
-  LinkBlock,
-  MarqueeBlock as MarqueeBlockProps,
-  MediaBlock as MediaBlockProps,
-} from "@/payload-types";
-import {
-  LayoutsJSXConverter,
-  ExpandedJSXConverter,
-} from "@/plugins/converters";
+
+import { cn } from "@/lib/utils";
 import { MarqueeBlock } from "@/blocks/marquee-block/component";
+import {
+  ExpandedJSXConverter,
+  LayoutsJSXConverter,
+} from "@/plugins/converters";
+
+import { CMSLink } from "./link";
 import { Media } from "./media";
+
 type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<LinkBlock | MarqueeBlockProps | MediaBlockProps>;
@@ -72,8 +75,8 @@ export const RichText: React.FC<Props> = (props) => {
     "mx-auto",
     "prose lg:prose-lg",
     "prose-headings:text-(--accent-twelve) prose-p:text-(--accent-twelve)",
-    "prose-headings:font-light prose-headings:capitalize prose-headings:tracking-wider",
-    className,
+    "prose-headings:font-light prose-headings:tracking-wider prose-headings:capitalize",
+    className
   );
 
   return (
@@ -85,7 +88,7 @@ export const RichText: React.FC<Props> = (props) => {
           "max-w-[100ch]": !enableGutter,
           [proseClass]: enableProse,
         },
-        className,
+        className
       )}
       {...rest}
     />

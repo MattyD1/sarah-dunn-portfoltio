@@ -1,7 +1,7 @@
-import { Config } from "@/payload-types";
-import { getPayload } from "payload";
-import configPromise from "@payload-config";
 import { unstable_cache } from "next/cache";
+import { Config } from "@/payload-types";
+import configPromise from "@payload-config";
+import { getPayload } from "payload";
 
 type Global = keyof Config["globals"];
 

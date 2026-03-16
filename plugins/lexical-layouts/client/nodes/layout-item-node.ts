@@ -12,12 +12,11 @@ import type {
   LexicalNode,
   SerializedElementNode,
 } from "@payloadcms/richtext-lexical/lexical";
-
-import { addClassNamesToElement } from "@payloadcms/richtext-lexical/lexical/utils";
 import {
   $isParagraphNode,
   ElementNode,
 } from "@payloadcms/richtext-lexical/lexical";
+import { addClassNamesToElement } from "@payloadcms/richtext-lexical/lexical/utils";
 
 export type SerializedLayoutItemNode = SerializedElementNode;
 
@@ -94,7 +93,7 @@ export function $createLayoutItemNode(): LayoutItemNode {
 }
 
 export function $isLayoutItemNode(
-  node: LexicalNode | null | undefined,
+  node: LexicalNode | null | undefined
 ): node is LayoutItemNode {
   return node instanceof LayoutItemNode;
 }

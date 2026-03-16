@@ -16,12 +16,11 @@ import type {
   SerializedElementNode,
   Spread,
 } from "@payloadcms/richtext-lexical/lexical";
-
-import { addClassNamesToElement } from "@payloadcms/richtext-lexical/lexical/utils";
 import {
   $isParagraphNode,
   ElementNode,
 } from "@payloadcms/richtext-lexical/lexical";
+import { addClassNamesToElement } from "@payloadcms/richtext-lexical/lexical/utils";
 
 export type SerializedExpandedContainerNode = Spread<
   {
@@ -31,11 +30,11 @@ export type SerializedExpandedContainerNode = Spread<
 >;
 
 function $convertExpandedContainerElement(
-  domNode: HTMLElement,
+  domNode: HTMLElement
 ): DOMConversionOutput | null {
   const styleAttributes = window.getComputedStyle(domNode);
   const templateColumns = styleAttributes.getPropertyValue(
-    "grid-template-columns",
+    "grid-template-columns"
   );
   if (templateColumns) {
     const node = $createExpandedContainerNode();
@@ -107,13 +106,13 @@ export class ExpandedContainerNode extends ElementNode {
   }
 
   static importJSON(
-    json: SerializedExpandedContainerNode,
+    json: SerializedExpandedContainerNode
   ): ExpandedContainerNode {
     return $createExpandedContainerNode().updateFromJSON(json);
   }
 
   updateFromJSON(
-    serializedNode: LexicalUpdateJSON<SerializedExpandedContainerNode>,
+    serializedNode: LexicalUpdateJSON<SerializedExpandedContainerNode>
   ): this {
     return super.updateFromJSON(serializedNode);
   }
@@ -132,7 +131,7 @@ export function $createExpandedContainerNode(): ExpandedContainerNode {
 }
 
 export function $isExpandedContainerNode(
-  node: LexicalNode | null | undefined,
+  node: LexicalNode | null | undefined
 ): node is ExpandedContainerNode {
   return node instanceof ExpandedContainerNode;
 }

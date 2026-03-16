@@ -16,9 +16,8 @@ import type {
   SerializedElementNode,
   Spread,
 } from "@payloadcms/richtext-lexical/lexical";
-
-import { addClassNamesToElement } from "@payloadcms/richtext-lexical/lexical/utils";
 import { ElementNode } from "@payloadcms/richtext-lexical/lexical";
+import { addClassNamesToElement } from "@payloadcms/richtext-lexical/lexical/utils";
 
 export type SerializedLayoutContainerNode = Spread<
   {
@@ -28,11 +27,11 @@ export type SerializedLayoutContainerNode = Spread<
 >;
 
 function $convertLayoutContainerElement(
-  domNode: HTMLElement,
+  domNode: HTMLElement
 ): DOMConversionOutput | null {
   const styleAttributes = window.getComputedStyle(domNode);
   const templateColumns = styleAttributes.getPropertyValue(
-    "grid-template-columns",
+    "grid-template-columns"
   );
   if (templateColumns) {
     const node = $createLayoutContainerNode(templateColumns);
@@ -98,7 +97,7 @@ export class LayoutContainerNode extends ElementNode {
   }
 
   updateFromJSON(
-    serializedNode: LexicalUpdateJSON<SerializedLayoutContainerNode>,
+    serializedNode: LexicalUpdateJSON<SerializedLayoutContainerNode>
   ): this {
     return super
       .updateFromJSON(serializedNode)
@@ -132,13 +131,13 @@ export class LayoutContainerNode extends ElementNode {
 }
 
 export function $createLayoutContainerNode(
-  templateColumns: string = "",
+  templateColumns: string = ""
 ): LayoutContainerNode {
   return new LayoutContainerNode(templateColumns);
 }
 
 export function $isLayoutContainerNode(
-  node: LexicalNode | null | undefined,
+  node: LexicalNode | null | undefined
 ): node is LayoutContainerNode {
   return node instanceof LayoutContainerNode;
 }

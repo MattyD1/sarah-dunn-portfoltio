@@ -13,6 +13,8 @@
     "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint",
     "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation next lint --fix",
+    "format:write": "prettier --write \"**/*.{ts,tsx}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx}\" --cache",
     "payload": "cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
@@ -49,6 +51,7 @@
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20",
@@ -56,6 +59,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "prettier": "3.8.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "shadcn": "^3.8.5",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.4.0",

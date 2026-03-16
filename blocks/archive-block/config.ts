@@ -1,7 +1,8 @@
+import { Block } from "payload";
+
 import { blockOptions } from "@/fields/block-options";
 import { colorField } from "@/fields/color-picker/field";
 import { linkGroup } from "@/fields/link-group";
-import { Block } from "payload";
 
 export const ArchiveBlock: Block = {
   slug: "archiveBlock",

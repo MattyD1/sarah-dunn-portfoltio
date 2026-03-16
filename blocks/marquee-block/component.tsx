@@ -1,9 +1,10 @@
-import { Marquee } from "@/components/ui/marquee";
-import { cn } from "@/lib/utils";
 import { MarqueeBlock as MarqueeBlockProps } from "@/payload-types";
 
+import { cn } from "@/lib/utils";
+import { Marquee } from "@/components/ui/marquee";
+
 export const MarqueeBlock: React.FC<MarqueeBlockProps & { id?: string }> = (
-  props,
+  props
 ) => {
   const { repeat, reversed, pausedOnHover, textArray } = props;
 
@@ -27,7 +28,7 @@ export const MarqueeBlock: React.FC<MarqueeBlockProps & { id?: string }> = (
             <p
               key={i}
               className={cn(
-                "text-4xl font-light tracking-wider text-(--accent-seven) px-8",
+                "px-8 text-4xl font-light tracking-wider text-(--accent-seven)"
               )}
             >
               {text}

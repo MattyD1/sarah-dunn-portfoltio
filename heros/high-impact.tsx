@@ -1,10 +1,12 @@
 "use client";
+
+import { useRef } from "react";
+import { Page } from "@/payload-types";
+import { motion, useScroll, useTransform } from "framer-motion";
+
 import { CMSLink } from "@/components/link";
 import { Media } from "@/components/media";
 import { RichText } from "@/components/rich-text";
-import { Page } from "@/payload-types";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 
 export const HighImpactHero: React.FC<Page["hero"]> = ({
   links,
@@ -25,7 +27,7 @@ export const HighImpactHero: React.FC<Page["hero"]> = ({
   return (
     <div
       ref={container}
-      className="relative text-(--accent-twelve) h-screen flex px-6"
+      className="relative flex h-screen px-6 text-(--accent-twelve)"
     >
       {/* Background Image */}
       <div
@@ -43,11 +45,11 @@ export const HighImpactHero: React.FC<Page["hero"]> = ({
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-(--accent-one)" />
       </div>
 
-      <div className="flex flex-col justify-center gap-12 z-10">
+      <div className="z-10 flex flex-col justify-center gap-12">
         {richText && (
           <RichText
             data={richText}
-            className="text-9xl tracking-[10] font-light leading-[1.2]"
+            className="text-9xl leading-[1.2] font-light tracking-[10]"
           />
         )}
         <div>
@@ -69,7 +71,7 @@ export const HighImpactHero: React.FC<Page["hero"]> = ({
           translateY: transform, // translateY instead of y — skips layout recalc
           willChange: "transform", // promotes to GPU layer early
         }}
-        className="parallax-image absolute bottom-0 right-14 w-1/3 z-20"
+        className="parallax-image absolute right-14 bottom-0 z-20 w-1/3"
       >
         <Media
           imgClassName="w-full h-auto object-contain border-2 border-white rounded-lg shadow-image"

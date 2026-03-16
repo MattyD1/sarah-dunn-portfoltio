@@ -1,15 +1,16 @@
-import { CMSLink } from "@/components/link";
-import { Media } from "@/components/media";
 import { LinksBlock as LinksBlockProps } from "@/payload-types";
 
+import { CMSLink } from "@/components/link";
+import { Media } from "@/components/media";
+
 export const LinksBlock: React.FC<LinksBlockProps & { id?: string }> = (
-  props,
+  props
 ) => {
   const { id, heading, media, links } = props;
 
   return (
     <div id={`block-${id}`}>
-      <h2 className="text-5xl max-w-[12ch] font-light capitalize tracking-wider mb-9">
+      <h2 className="mb-9 max-w-[12ch] text-5xl font-light tracking-wider capitalize">
         {heading}
       </h2>
       <div className="grid grid-cols-5 gap-24">

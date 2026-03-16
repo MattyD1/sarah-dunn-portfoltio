@@ -1,6 +1,7 @@
-import { CMSLink } from "@/components/link";
-import { getCachedGlobal } from "@/lib/get-globals";
 import { Footer as FooterType } from "@/payload-types";
+
+import { getCachedGlobal } from "@/lib/get-globals";
+import { CMSLink } from "@/components/link";
 
 export const Footer = async () => {
   const footerData: FooterType = await getCachedGlobal("footer", 1)();
@@ -8,7 +9,7 @@ export const Footer = async () => {
   const { title, contactInfo, socials, navItems } = footerData;
 
   return (
-    <footer className="flex flex-row mx-32 pt-16 justify-between text-(--accent-twelve)">
+    <footer className="mx-32 flex flex-row justify-between pt-16 text-(--accent-twelve)">
       <div className="flex flex-col gap-4">
         <h1 className="text-base">{title}</h1>
         <p className="text-sm font-light tracking-wider">{contactInfo}</p>
@@ -36,7 +37,7 @@ export const Footer = async () => {
                       {links.map(({ link }, j) => (
                         <li key={j}>
                           <CMSLink
-                            className="text-sm tracking-wider font-light"
+                            className="text-sm font-light tracking-wider"
                             {...link}
                           />
                         </li>

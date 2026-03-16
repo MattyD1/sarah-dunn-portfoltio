@@ -5,9 +5,11 @@ import type {
   ToolbarGroupItem,
 } from "@payloadcms/richtext-lexical";
 import { createClientFeature } from "@payloadcms/richtext-lexical/client";
-import { FullscreenPlugin } from "./plugins/fullscreen-plugin";
-import { FullscreenIcon } from "@/plugins/ui/icons/fullscreen";
 import { LexicalEditor } from "@payloadcms/richtext-lexical/lexical";
+
+import { FullscreenIcon } from "@/plugins/ui/icons/fullscreen";
+
+import { FullscreenPlugin } from "./plugins/fullscreen-plugin";
 import { toggleFullscreen } from "./plugins/fullscreen-plugin/toggle-fullscreen";
 
 const FullscreenButton = (props: { editor: LexicalEditor }) => {
@@ -25,7 +27,7 @@ const FullscreenButton = (props: { editor: LexicalEditor }) => {
 };
 
 const toolbarFullscreenGroupWithItems = (
-  items: ToolbarGroupItem[],
+  items: ToolbarGroupItem[]
 ): ToolbarGroup => {
   return {
     type: "buttons",

@@ -1,17 +1,4 @@
-import type { CollectionConfig } from "payload";
-
-import { slugField } from "payload";
-import { adminOnly } from "@/access/admin-only";
-import { adminOrPublished } from "@/access/admin-or-published";
 import { hero } from "@/heros/config";
-import { ArchiveBlock } from "@/blocks/archive-block/config";
-import { MediaBlock } from "@/blocks/media-block/config";
-import { ContentBlock } from "@/blocks/content-block/config";
-import { LinksBlock } from "@/blocks/links-block/configs";
-import { colorField } from "@/fields/color-picker/field";
-import { paletteField } from "@/fields/color-palette/field";
-import { generatePreviewPath } from "@/lib/generate-preview-path";
-
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -19,6 +6,18 @@ import {
   OverviewField,
   PreviewField,
 } from "@payloadcms/plugin-seo/fields";
+import type { CollectionConfig } from "payload";
+import { slugField } from "payload";
+
+import { generatePreviewPath } from "@/lib/generate-preview-path";
+import { adminOnly } from "@/access/admin-only";
+import { adminOrPublished } from "@/access/admin-or-published";
+import { ArchiveBlock } from "@/blocks/archive-block/config";
+import { ContentBlock } from "@/blocks/content-block/config";
+import { LinksBlock } from "@/blocks/links-block/configs";
+import { MediaBlock } from "@/blocks/media-block/config";
+import { paletteField } from "@/fields/color-palette/field";
+import { colorField } from "@/fields/color-picker/field";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",

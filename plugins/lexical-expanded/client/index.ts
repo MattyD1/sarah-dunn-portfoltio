@@ -4,9 +4,11 @@ import {
   createClientFeature,
   toolbarAddDropdownGroupWithItems,
 } from "@payloadcms/richtext-lexical/client";
+
+import { ExpandIcon } from "@/plugins/ui/icons/expanded";
+
 import { ExpandedContainerNode } from "./nodes/expanded-container-node";
 import { INSERT_EXPANDED_COMMAND, LayoutPlugin } from "./plugins/layout-plugin";
-import { ExpandIcon } from "@/plugins/ui/icons/expanded";
 
 export const ExpandedFeatureClient = createClientFeature({
   nodes: [ExpandedContainerNode],

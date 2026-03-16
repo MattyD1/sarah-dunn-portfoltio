@@ -1,4 +1,12 @@
-'use client'
+"use client";
+
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   AnimateHeight,
   Button,
@@ -11,20 +19,26 @@ import {
   useField,
   useModal,
   useTranslation,
-} from '@payloadcms/ui'
-import { DefaultCellComponentProps, TextFieldClient, TextFieldClientProps } from 'payload'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import './style.scss'
-import { IconData, IconPickerProps } from './types'
-import { DynamicIcon, IconName } from 'lucide-react/dynamic'
-import { iconsData } from './icons'
-import { useVirtualizer } from '@tanstack/react-virtual'
-import Fuse from 'fuse.js'
-import { useDebounceValue } from 'usehooks-ts'
+} from "@payloadcms/ui";
+import {
+  DefaultCellComponentProps,
+  TextFieldClient,
+  TextFieldClientProps,
+} from "payload";
+
+import "./style.scss";
+
+import { useVirtualizer } from "@tanstack/react-virtual";
+import Fuse from "fuse.js";
+import { DynamicIcon, IconName } from "lucide-react/dynamic";
+import { useDebounceValue } from "usehooks-ts";
+
+import { iconsData } from "./icons";
+import { IconData, IconPickerProps } from "./types";
 
 interface TooltipProps {
-  content: string
-  children: React.ReactNode
+  content: string;
+  children: React.ReactNode;
 }
 
 const Tooltip: React.FC<TooltipProps> = React.memo(({ content, children }) => {
@@ -33,9 +47,9 @@ const Tooltip: React.FC<TooltipProps> = React.memo(({ content, children }) => {
       {children}
       <div className="icon-picker__tooltip">{content}</div>
     </div>
-  )
-})
-Tooltip.displayName = 'Tooltip'
+  );
+});
+Tooltip.displayName = "Tooltip";
 
 // Loading Skeleton Component
 const IconsGridSkeleton: React.FC = () => {
@@ -48,26 +62,28 @@ const IconsGridSkeleton: React.FC = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 // Icon Renderer Component
 interface IconRendererProps {
-  name: string
-  size?: number
+  name: string;
+  size?: number;
 }
 
-const IconRenderer: React.FC<IconRendererProps> = React.memo(({ name, size = 20 }) => {
-  return <DynamicIcon name={name as IconName} size={size} />
-})
-IconRenderer.displayName = 'IconRenderer'
+const IconRenderer: React.FC<IconRendererProps> = React.memo(
+  ({ name, size = 20 }) => {
+    return <DynamicIcon name={name as IconName} size={size} />;
+  }
+);
+IconRenderer.displayName = "IconRenderer";
 
 // Icon Button Component
 interface IconButtonProps {
-  icon: IconData
-  isSelected: boolean
-  onSelect: (iconName: string) => void
-  disabled?: boolean
+  icon: IconData;
+  isSelected: boolean;
+  onSelect: (iconName: string) => void;
+  disabled?: boolean;
 }
 
 const IconButton: React.FC<IconButtonProps> = React.memo(
@@ -78,8 +94,8 @@ const IconButton: React.FC<IconButtonProps> = React.memo(
           type="button"
           className={
             isSelected
-              ? 'icon-picker__icon-button icon-picker__icon-button--selected'
-              : 'icon-picker__icon-button'
+              ? "icon-picker__icon-button icon-picker__icon-button--selected"
+              : "icon-picker__icon-button"
           }
           onClick={() => onSelect(icon.name)}
           disabled={disabled}
@@ -88,17 +104,17 @@ const IconButton: React.FC<IconButtonProps> = React.memo(
           <IconRenderer name={icon.name} size={24} />
         </button>
       </Tooltip>
-    )
+    );
   },
   (prevProps, nextProps) => {
     return (
       prevProps.icon.name === nextProps.icon.name &&
       prevProps.isSelected === nextProps.isSelected &&
       prevProps.disabled === nextProps.disabled
-    )
-  },
-)
-IconButton.displayName = 'IconButton'
+    );
+  }
+);
+IconButton.displayName = "IconButton";
 
 const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
   path,
@@ -106,196 +122,198 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
   showTextInput = true,
   searchable = true,
   categorized = true,
-  searchPlaceholder = 'Search icons...',
-  triggerPlaceholder = 'Select Icon',
+  searchPlaceholder = "Search icons...",
+  triggerPlaceholder = "Select Icon",
   readOnly,
 }) => {
-  const { setValue, value, disabled, showError } = useField<string>({ path: path || field.name })
-  const actualReadOnly = readOnly || field.admin?.readOnly || false
-  const { openModal, closeModal } = useModal()
+  const { setValue, value, disabled, showError } = useField<string>({
+    path: path || field.name,
+  });
+  const actualReadOnly = readOnly || field.admin?.readOnly || false;
+  const { openModal, closeModal } = useModal();
 
-  const [searchInput, setSearchInput] = useState('')
-  const [debouncedSearch] = useDebounceValue(searchInput, 200)
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [showCategories, setShowCategories] = useState(false)
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearch] = useDebounceValue(searchInput, 200);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showCategories, setShowCategories] = useState(false);
 
-  const drawerSlug = `icon-${field.name}-drawer-${path}`
+  const drawerSlug = `icon-${field.name}-drawer-${path}`;
 
   // Fuse.js instance for fuzzy search
   const fuseInstance = useMemo(() => {
     return new Fuse(iconsData, {
-      keys: ['name', 'tags', 'categories'],
+      keys: ["name", "tags", "categories"],
       threshold: 0.3,
       ignoreLocation: true,
       includeScore: true,
-    })
-  }, [])
+    });
+  }, []);
 
   // Filtered icons based on search
   const filteredIcons = useMemo(() => {
-    if (debouncedSearch.trim() === '') {
-      return iconsData
+    if (debouncedSearch.trim() === "") {
+      return iconsData;
     }
 
-    const results = fuseInstance.search(debouncedSearch.toLowerCase().trim())
-    return results.map((result) => result.item)
-  }, [debouncedSearch, fuseInstance])
+    const results = fuseInstance.search(debouncedSearch.toLowerCase().trim());
+    return results.map((result) => result.item);
+  }, [debouncedSearch, fuseInstance]);
 
   // Categorized icons
   const categorizedIcons = useMemo(() => {
-    if (!categorized || debouncedSearch.trim() !== '') {
-      return [{ name: 'All Icons', icons: filteredIcons }]
+    if (!categorized || debouncedSearch.trim() !== "") {
+      return [{ name: "All Icons", icons: filteredIcons }];
     }
 
-    const categories = new Map<string, IconData[]>()
+    const categories = new Map<string, IconData[]>();
 
     filteredIcons.forEach((icon) => {
       if (icon.categories && icon.categories.length > 0) {
         icon.categories.forEach((category) => {
           if (!categories.has(category)) {
-            categories.set(category, [])
+            categories.set(category, []);
           }
-          categories.get(category)!.push(icon)
-        })
+          categories.get(category)!.push(icon);
+        });
       } else {
-        const category = 'Other'
+        const category = "Other";
         if (!categories.has(category)) {
-          categories.set(category, [])
+          categories.set(category, []);
         }
-        categories.get(category)!.push(icon)
+        categories.get(category)!.push(icon);
       }
-    })
+    });
 
     return Array.from(categories.entries())
       .map(([name, icons]) => ({ name, icons }))
-      .sort((a, b) => a.name.localeCompare(b.name))
-  }, [filteredIcons, categorized, debouncedSearch])
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [filteredIcons, categorized, debouncedSearch]);
 
-  const parentRef = useRef<HTMLDivElement>(null)
-  const [containerWidth, setContainerWidth] = useState(0)
+  const parentRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
 
   // Calculate container width and icons per row
   useEffect(() => {
-    if (!parentRef.current) return
+    if (!parentRef.current) return;
 
     const updateWidth = () => {
       if (parentRef.current) {
-        setContainerWidth(parentRef.current.offsetWidth)
+        setContainerWidth(parentRef.current.offsetWidth);
       }
-    }
+    };
 
-    updateWidth()
-    const resizeObserver = new ResizeObserver(updateWidth)
-    resizeObserver.observe(parentRef.current)
+    updateWidth();
+    const resizeObserver = new ResizeObserver(updateWidth);
+    resizeObserver.observe(parentRef.current);
 
-    return () => resizeObserver.disconnect()
-  }, [isDrawerOpen])
+    return () => resizeObserver.disconnect();
+  }, [isDrawerOpen]);
 
   // Calculate icons per row based on container width
   const iconsPerRow = useMemo(() => {
-    if (containerWidth === 0) return 8
+    if (containerWidth === 0) return 8;
     // Icon: 70-85px, gap: 10px
-    const iconWidth = 85
-    const gap = 10
-    const calculated = Math.floor((containerWidth + gap) / (iconWidth + gap))
-    return Math.max(4, calculated)
-  }, [containerWidth])
+    const iconWidth = 85;
+    const gap = 10;
+    const calculated = Math.floor((containerWidth + gap) / (iconWidth + gap));
+    return Math.max(4, calculated);
+  }, [containerWidth]);
 
   // Flatten icons into rows with category headers
   const gridRows = useMemo(() => {
     const rows: Array<
-      | { type: 'category'; name: string; index: number }
-      | { type: 'iconRow'; icons: IconData[]; index: number }
-    > = []
-    let rowIndex = 0
+      | { type: "category"; name: string; index: number }
+      | { type: "iconRow"; icons: IconData[]; index: number }
+    > = [];
+    let rowIndex = 0;
 
     categorizedIcons.forEach((category) => {
       // Add category header
-      rows.push({ type: 'category', name: category.name, index: rowIndex++ })
+      rows.push({ type: "category", name: category.name, index: rowIndex++ });
 
       // Split icons into rows
       for (let i = 0; i < category.icons.length; i += iconsPerRow) {
-        const rowIcons = category.icons.slice(i, i + iconsPerRow)
-        rows.push({ type: 'iconRow', icons: rowIcons, index: rowIndex++ })
+        const rowIcons = category.icons.slice(i, i + iconsPerRow);
+        rows.push({ type: "iconRow", icons: rowIcons, index: rowIndex++ });
       }
-    })
+    });
 
-    return rows
-  }, [categorizedIcons, iconsPerRow])
+    return rows;
+  }, [categorizedIcons, iconsPerRow]);
 
   // Row virtualizer
   const rowVirtualizer = useVirtualizer({
     count: gridRows.length,
     getScrollElement: () => parentRef.current,
     estimateSize: (index) => {
-      const row = gridRows[index]
-      return row?.type === 'category' ? 50 : 100
+      const row = gridRows[index];
+      return row?.type === "category" ? 50 : 100;
     },
     overscan: 5,
-  })
+  });
 
   const handleIconSelect = useCallback(
     (iconName: string) => {
       if (value === iconName) {
-        setValue(null)
-        closeModal(drawerSlug)
-        setSearchInput('')
-        return
+        setValue(null);
+        closeModal(drawerSlug);
+        setSearchInput("");
+        return;
       }
-      setValue(iconName)
-      closeModal(drawerSlug)
-      setSearchInput('')
+      setValue(iconName);
+      closeModal(drawerSlug);
+      setSearchInput("");
     },
-    [setValue, closeModal, drawerSlug, value],
-  )
+    [setValue, closeModal, drawerSlug, value]
+  );
 
   const handleTextInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const iconName = event?.target.value
-      setValue(iconName)
+      const iconName = event?.target.value;
+      setValue(iconName);
     },
-    [setValue],
-  )
+    [setValue]
+  );
 
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchInput(e.target.value)
-      rowVirtualizer.scrollToOffset(0)
+      setSearchInput(e.target.value);
+      rowVirtualizer.scrollToOffset(0);
     },
-    [rowVirtualizer],
-  )
+    [rowVirtualizer]
+  );
 
   const scrollToCategory = useCallback(
     (categoryName: string) => {
       const categoryIndex = gridRows.findIndex(
-        (row) => row.type === 'category' && row.name === categoryName,
-      )
+        (row) => row.type === "category" && row.name === categoryName
+      );
       if (categoryIndex !== -1) {
-        rowVirtualizer.scrollToIndex(categoryIndex, { align: 'start' })
+        rowVirtualizer.scrollToIndex(categoryIndex, { align: "start" });
       }
     },
-    [gridRows, rowVirtualizer],
-  )
+    [gridRows, rowVirtualizer]
+  );
 
   // Handle drawer open/close
   useEffect(() => {
     if (isDrawerOpen) {
-      setIsLoading(true)
+      setIsLoading(true);
       const timer = setTimeout(() => {
-        setIsLoading(false)
+        setIsLoading(false);
         requestAnimationFrame(() => {
-          rowVirtualizer.measure()
-        })
-      }, 50)
+          rowVirtualizer.measure();
+        });
+      }, 50);
 
-      return () => clearTimeout(timer)
+      return () => clearTimeout(timer);
     }
-  }, [isDrawerOpen, rowVirtualizer])
+  }, [isDrawerOpen, rowVirtualizer]);
 
-  const isDisabled = actualReadOnly || disabled
+  const isDisabled = actualReadOnly || disabled;
 
-  const virtualRows = rowVirtualizer.getVirtualItems()
+  const virtualRows = rowVirtualizer.getVirtualItems();
 
   // Virtualized content
   const virtualContent = (
@@ -306,13 +324,13 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
         <div
           style={{
             height: `${rowVirtualizer.getTotalSize()}px`,
-            width: '100%',
-            position: 'relative',
+            width: "100%",
+            position: "relative",
           }}
         >
           {virtualRows.map((virtualRow) => {
-            const row = gridRows[virtualRow.index]
-            if (!row) return null
+            const row = gridRows[virtualRow.index];
+            if (!row) return null;
 
             return (
               <div
@@ -320,14 +338,14 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
                 data-index={virtualRow.index}
                 ref={rowVirtualizer.measureElement}
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   top: 0,
                   left: 0,
-                  width: '100%',
+                  width: "100%",
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
               >
-                {row.type === 'category' ? (
+                {row.type === "category" ? (
                   <div className="icon-picker__category-header">
                     <h3 className="icon-picker__category-title">{row.name}</h3>
                     <div className="icon-picker__category-divider" />
@@ -347,12 +365,12 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
                   </div>
                 )}
               </div>
-            )
+            );
           })}
         </div>
       )}
     </>
-  )
+  );
 
   return (
     <div className="icon-picker">
@@ -367,14 +385,14 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
           <Button
             onClick={() => {
               if (!actualReadOnly && !disabled) {
-                setIsDrawerOpen(true)
-                openModal(drawerSlug)
+                setIsDrawerOpen(true);
+                openModal(drawerSlug);
               }
             }}
             disabled={actualReadOnly || disabled}
             margin={false}
-            buttonStyle={'secondary'}
-            className={showError ? 'icon-picker__error-btn' : undefined}
+            buttonStyle={"secondary"}
+            className={showError ? "icon-picker__error-btn" : undefined}
           >
             {value ? (
               <span className="icon-picker__selected-icon">
@@ -393,12 +411,12 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
               aria-label="Clear selected icon"
               margin={false}
               iconStyle="with-border"
-              icon={['x']}
+              icon={["x"]}
             ></Button>
           )}
           {showTextInput && (
             <TextInput
-              value={value || ''}
+              value={value || ""}
               onChange={handleTextInputChange}
               placeholder="e.g., home"
               readOnly={actualReadOnly || disabled}
@@ -411,7 +429,11 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
       </div>
       <FieldDescription description={field.admin?.description} path={path} />
 
-      <Drawer slug={drawerSlug} title="Select Icon" className="icon-picker__drawer">
+      <Drawer
+        slug={drawerSlug}
+        title="Select Icon"
+        className="icon-picker__drawer"
+      >
         <div className="icon-picker__drawer-header">
           {searchable && (
             <TextInput
@@ -422,17 +444,19 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
               path={`${path}-search`}
             />
           )}
-          {categorized && debouncedSearch.trim() === '' && (
+          {categorized && debouncedSearch.trim() === "" && (
             <>
               <Button
                 type="button"
                 onClick={() => setShowCategories(!showCategories)}
-                icon={<ChevronIcon direction={showCategories ? 'up' : 'down'} />}
+                icon={
+                  <ChevronIcon direction={showCategories ? "up" : "down"} />
+                }
                 margin={false}
               >
                 <span>Browse by category</span>
               </Button>
-              <AnimateHeight height={showCategories ? 'auto' : 0}>
+              <AnimateHeight height={showCategories ? "auto" : 0}>
                 <div className="icon-picker__categories">
                   {categorizedIcons.map((category) => (
                     <Button
@@ -443,7 +467,8 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
                       buttonStyle="pill"
                       onClick={() => scrollToCategory(category.name)}
                     >
-                      {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+                      {category.name.charAt(0).toUpperCase() +
+                        category.name.slice(1)}
                     </Button>
                   ))}
                 </div>
@@ -456,12 +481,14 @@ const LucideIconPicker: React.FC<TextFieldClientProps & IconPickerProps> = ({
         </div>
       </Drawer>
     </div>
-  )
-}
+  );
+};
 
-export const IconCell: React.FC<DefaultCellComponentProps<TextFieldClient>> = (props) => {
-  const { cellData, field } = props
-  const { i18n } = useTranslation()
+export const IconCell: React.FC<DefaultCellComponentProps<TextFieldClient>> = (
+  props
+) => {
+  const { cellData, field } = props;
+  const { i18n } = useTranslation();
 
   return (
     <div className="icon-cell">
@@ -473,12 +500,12 @@ export const IconCell: React.FC<DefaultCellComponentProps<TextFieldClient>> = (p
       <span>
         {cellData
           ? cellData
-          : i18n.t('general:noLabel', {
+          : i18n.t("general:noLabel", {
               label: field.name,
             })}
       </span>
     </div>
-  )
-}
+  );
+};
 
-export default LucideIconPicker
+export default LucideIconPicker;

@@ -1,11 +1,13 @@
-import { CMSLink } from "@/components/link";
 import type {
   ArchiveBlock as ArchiveBlockProps,
   Product,
 } from "@/payload-types";
-import { CollectionArchive } from "./collection-archive";
-import { getPayload } from "payload";
 import configPromise from "@payload-config";
+import { getPayload } from "payload";
+
+import { CMSLink } from "@/components/link";
+
+import { CollectionArchive } from "./collection-archive";
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & { id?: string }
@@ -42,7 +44,7 @@ export const ArchiveBlock: React.FC<
   return (
     <div id={`block-${id}`}>
       <div className="flex flex-row justify-between pb-4">
-        <h2 className="text-4xl font-light capitalize tracking-wider">
+        <h2 className="text-4xl font-light tracking-wider capitalize">
           {heading}
         </h2>
         <div>

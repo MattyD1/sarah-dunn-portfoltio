@@ -1,6 +1,8 @@
-import { ArrayField, Field, RowLabel, RowLabelComponent } from "payload";
-import { link, type LinkAppearances } from "./link";
+import { ArrayField, Field } from "payload";
+
 import deepMerge from "@/lib/deepMerge";
+
+import { link, type LinkAppearances } from "./link";
 
 type LinkGroupType = (options?: {
   appearances?: LinkAppearances[] | false;

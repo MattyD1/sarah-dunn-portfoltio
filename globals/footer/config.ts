@@ -1,5 +1,6 @@
-import { linkGroup } from "@/fields/link-group";
 import { GlobalConfig } from "payload";
+
+import { linkGroup } from "@/fields/link-group";
 
 export const Footer: GlobalConfig = {
   slug: "footer",

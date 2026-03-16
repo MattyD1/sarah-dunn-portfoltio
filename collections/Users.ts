@@ -1,9 +1,10 @@
+import type { CollectionConfig } from "payload";
+
 import { adminOnly } from "@/access/admin-only";
 import { adminOnlyFieldAccess } from "@/access/admin-only-field";
 import { adminOrSelf } from "@/access/admin-or-self";
 import { publicAccess } from "@/access/public-access";
 import { checkRole } from "@/access/utils";
-import type { CollectionConfig } from "payload";
 
 export const Users: CollectionConfig = {
   slug: "users",

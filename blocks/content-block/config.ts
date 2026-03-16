@@ -1,7 +1,3 @@
-import { link, linkBlock } from "@/fields/link";
-import { ExpandedFeature } from "@/plugins/lexical-expanded";
-import { FullscreenFeature } from "@/plugins/lexical-fullscreen";
-import { LayoutsFeature } from "@/plugins/lexical-layouts";
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -9,9 +5,15 @@ import {
   lexicalEditor,
 } from "@payloadcms/richtext-lexical";
 import { Block } from "payload";
+
+import { blockOptions } from "@/fields/block-options";
+import { linkBlock } from "@/fields/link";
+import { ExpandedFeature } from "@/plugins/lexical-expanded";
+import { FullscreenFeature } from "@/plugins/lexical-fullscreen";
+import { LayoutsFeature } from "@/plugins/lexical-layouts";
+
 import { MarqueeBlock } from "../marquee-block/config";
 import { MediaBlock } from "../media-block/config";
-import { blockOptions } from "@/fields/block-options";
 
 export const ContentBlock: Block = {
   slug: "contentBlock",

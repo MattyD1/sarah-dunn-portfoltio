@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import { getServerSideURL } from "./get-url";
 
 const defaultOpenGraph: Metadata["openGraph"] = {
@@ -15,7 +16,7 @@ const defaultOpenGraph: Metadata["openGraph"] = {
 };
 
 export const mergeOpenGraph = (
-  og?: Partial<Metadata["openGraph"]>,
+  og?: Partial<Metadata["openGraph"]>
 ): Metadata["openGraph"] => {
   return {
     ...defaultOpenGraph,

@@ -1,4 +1,5 @@
 import { Page } from "@/payload-types";
+
 import { HighImpactHero } from "./high-impact";
 
 const heroes = {

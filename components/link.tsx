@@ -1,10 +1,10 @@
-import { Page } from "@/payload-types";
-import { Button, ButtonProps } from "./ui/button";
 import Link from "next/link";
+import { Page } from "@/payload-types";
+import { DynamicIcon, IconName } from "lucide-react/dynamic";
+
 import { cn } from "@/lib/utils";
 
-import { ArrowRight, Icon, LucideIcon } from "lucide-react";
-import { DynamicIcon, IconName } from "lucide-react/dynamic";
+import { Button, ButtonProps } from "./ui/button";
 
 type CMSLinkType = {
   appearance?: "inline" | ButtonProps["variant"];
