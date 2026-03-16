@@ -90,7 +90,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {
@@ -138,9 +138,8 @@ export interface UserAuthOperations {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: string;
+  id: number;
   title: string;
-  publishedOn?: string | null;
   hero: {
     type: 'none' | 'highImpact';
     richText?: {
@@ -165,7 +164,7 @@ export interface Page {
             newTab?: boolean | null;
             reference?: {
               relationTo: 'pages';
-              value: string | Page;
+              value: number | Page;
             } | null;
             url?: string | null;
             label?: string | null;
@@ -178,8 +177,8 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media: string | Media;
-    backgroundImage?: (string | null) | Media;
+    media: number | Media;
+    backgroundImage?: (number | null) | Media;
   };
   layout: (
     | ArchiveBlock
@@ -190,7 +189,7 @@ export interface Page {
          * This value will adjust how the block is presented on the page
          */
         container?: ('prose' | 'full' | 'default') | null;
-        media: string | Media;
+        media: number | Media;
         id?: string | null;
         blockName?: string | null;
         blockType: 'mediaBlock';
@@ -213,7 +212,15 @@ export interface Page {
       | boolean
       | null;
   };
-  meta?: {};
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -228,7 +235,7 @@ export interface Page {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -319,7 +326,7 @@ export interface ArchiveBlock {
           newTab?: boolean | null;
           reference?: {
             relationTo: 'pages';
-            value: string | Page;
+            value: number | Page;
           } | null;
           url?: string | null;
           label?: string | null;
@@ -337,7 +344,7 @@ export interface ArchiveBlock {
   selectedDocs?:
     | {
         relationTo: 'products';
-        value: string | Product;
+        value: number | Product;
       }[]
     | null;
   id?: string | null;
@@ -349,9 +356,9 @@ export interface ArchiveBlock {
  * via the `definition` "products".
  */
 export interface Product {
-  id: string;
+  id: number;
   title: string;
-  featureImage: string | Media;
+  featureImage: number | Media;
   description?: {
     root: {
       type: string;
@@ -412,7 +419,7 @@ export interface LinksBlock {
    */
   container?: ('prose' | 'full' | 'default') | null;
   heading?: string | null;
-  media: string | Media;
+  media: number | Media;
   links?:
     | {
         link: {
@@ -420,7 +427,7 @@ export interface LinksBlock {
           newTab?: boolean | null;
           reference?: {
             relationTo: 'pages';
-            value: string | Page;
+            value: number | Page;
           } | null;
           url?: string | null;
           label?: string | null;
@@ -442,7 +449,7 @@ export interface LinksBlock {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   name?: string | null;
   roles?: 'admin'[] | null;
   updatedAt: string;
@@ -469,7 +476,7 @@ export interface User {
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -486,7 +493,7 @@ export interface PayloadKv {
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
-  id: string;
+  id: number;
   /**
    * Input data provided to the job
    */
@@ -578,28 +585,28 @@ export interface PayloadJob {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'pages';
-        value: string | Page;
+        value: number | Page;
       } | null)
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
       } | null)
     | ({
         relationTo: 'products';
-        value: string | Product;
+        value: number | Product;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -609,10 +616,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -632,7 +639,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -644,7 +651,6 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
-  publishedOn?: T;
   hero?:
     | T
     | {
@@ -686,7 +692,14 @@ export interface PagesSelect<T extends boolean = true> {
         dark?: T;
         palette?: T;
       };
-  meta?: T | {};
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;
@@ -980,7 +993,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "footer".
  */
 export interface Footer {
-  id: string;
+  id: number;
   title: string;
   contactInfo?: string | null;
   socials?:
@@ -990,7 +1003,7 @@ export interface Footer {
           newTab?: boolean | null;
           reference?: {
             relationTo: 'pages';
-            value: string | Page;
+            value: number | Page;
           } | null;
           url?: string | null;
           label?: string | null;
@@ -1013,7 +1026,7 @@ export interface Footer {
                 newTab?: boolean | null;
                 reference?: {
                   relationTo: 'pages';
-                  value: string | Page;
+                  value: number | Page;
                 } | null;
                 url?: string | null;
                 label?: string | null;
@@ -1094,10 +1107,10 @@ export interface TaskSchedulePublish {
     locale?: string | null;
     doc?: {
       relationTo: 'pages';
-      value: string | Page;
+      value: number | Page;
     } | null;
     global?: string | null;
-    user?: (string | null) | User;
+    user?: (number | null) | User;
   };
   output?: unknown;
 }
@@ -1112,7 +1125,7 @@ export interface MediaBlock {
    * This value will adjust how the block is presented on the page
    */
   container?: ('prose' | 'full' | 'default') | null;
-  media: string | Media;
+  media: number | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -1127,7 +1140,7 @@ export interface LinkBlock {
     newTab?: boolean | null;
     reference?: {
       relationTo: 'pages';
-      value: string | Page;
+      value: number | Page;
     } | null;
     url?: string | null;
     label?: string | null;

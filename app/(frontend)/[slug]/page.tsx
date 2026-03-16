@@ -8,74 +8,25 @@ import { RenderBlocks } from "@/blocks/render-blocks";
 import { Footer } from "@/globals/footer/component";
 import { ColorPalette } from "@/fields/color-palette/types";
 import { Cursor } from "@/components/cursor";
+import { Redirects } from "@/components/redirects";
+import { LivePreviewListener } from "@/components/live-preview-listener";
+import { cn } from "@/lib/utils";
 
 type Args = {
   params: Promise<{ slug?: string }>;
 };
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise });
-  const pages = await payload.find({
-    collection: "pages",
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  });
-
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== "home";
-    })
-    .map(({ slug }) => {
-      return { slug };
-    });
-
-  return params;
-}
-
-export async function generateMetadata({ params }: Args): Promise<Metadata> {
-  const { slug = "home" } = await params;
-
-  const page = await queryPageBySlug({ slug });
-
-  return generateMeta({ doc: page });
-}
-
-const queryPageBySlug = async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode();
-
-  const payload = await getPayload({ config: configPromise });
-
-  const result = await payload.find({
-    collection: "pages",
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    pagination: false,
-    where: {
-      and: [
-        {
-          slug: {
-            equals: slug,
-          },
-        },
-        ...(draft ? [] : [{ _status: { equals: "published" } }]),
-      ],
-    },
-  });
-
-  return result.docs?.[0] || null;
-};
-
 export default async function Page({ params }: Args) {
+  const { isEnabled: draft } = await draftMode();
   const { slug = "home" } = await params;
-  const page = await queryPageBySlug({ slug });
 
-  if (!page) return null;
+  const decodedSlug = decodeURIComponent(slug);
+  const url = "/" + decodedSlug;
+  const page = await queryPageBySlug({ slug: decodedSlug });
+
+  if (!page) {
+    return <Redirects url={url} />;
+  }
 
   const {
     hero,
@@ -85,11 +36,8 @@ export default async function Page({ params }: Args) {
 
   const palette = untypedPalette as ColorPalette | null;
 
-  console.log(palette);
-
   return (
-    <article
-      className="flex flex-col bg-(--accent-one)"
+    <main
       style={
         {
           "--accent-one": palette?.accentScale[0] ?? "#fff",
@@ -119,10 +67,72 @@ export default async function Page({ params }: Args) {
         } as React.CSSProperties
       }
     >
-      <Cursor />
-      <RenderHero {...hero} />
-      <RenderBlocks blocks={layout} />
-      <Footer />
-    </article>
+      <article className={cn("bg-(--accent-one)")}>
+        {/*<Redirects url={url} />*/}
+        <Cursor />
+
+        {draft && <LivePreviewListener />}
+
+        <RenderHero {...hero} />
+        <RenderBlocks blocks={layout} />
+        <Footer />
+      </article>
+    </main>
   );
 }
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise });
+  const pages = await payload.find({
+    collection: "pages",
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+    },
+  });
+
+  const params = pages.docs
+    ?.filter((doc) => {
+      return doc.slug !== "home";
+    })
+    .map(({ slug }) => {
+      return { slug };
+    });
+
+  return params;
+}
+
+export async function generateMetadata({
+  params: paramsPromise,
+}: Args): Promise<Metadata> {
+  const { slug = "home" } = await paramsPromise;
+
+  const decodedSlug = decodeURIComponent(slug);
+  const page = await queryPageBySlug({ slug: decodedSlug });
+
+  return generateMeta({ doc: page });
+}
+
+const queryPageBySlug = async ({ slug }: { slug: string }) => {
+  const { isEnabled: draft } = await draftMode();
+
+  const payload = await getPayload({ config: configPromise });
+
+  const result = await payload.find({
+    collection: "pages",
+    draft,
+    limit: 1,
+    pagination: false,
+    overrideAccess: draft,
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  });
+
+  return result.docs?.[0] || null;
+};

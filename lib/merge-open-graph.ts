@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { getServerSideURL } from "./get-url";
 
 const defaultOpenGraph: Metadata["openGraph"] = {
   type: "website",
@@ -6,11 +7,11 @@ const defaultOpenGraph: Metadata["openGraph"] = {
     "A personal portfolio website, designed to showcase my skills and projects.",
   images: [
     {
-      url: "https://payloadcms.com/images/og-image.jpg",
+      url: `${getServerSideURL()}/images/og-image.jpg`,
     },
   ],
-  siteName: "Sarah Dunn Portfolio",
-  title: "Sarah Dunn Portfolio",
+  siteName: "Sarah Dunn Art Portfolio",
+  title: "Sarah Dunn Art Portfolio",
 };
 
 export const mergeOpenGraph = (

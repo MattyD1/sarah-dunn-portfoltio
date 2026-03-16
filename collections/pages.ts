@@ -10,6 +10,15 @@ import { ContentBlock } from "@/blocks/content-block/config";
 import { LinksBlock } from "@/blocks/links-block/configs";
 import { colorField } from "@/fields/color-picker/field";
 import { paletteField } from "@/fields/color-palette/field";
+import { generatePreviewPath } from "@/lib/generate-preview-path";
+
+import {
+  MetaDescriptionField,
+  MetaImageField,
+  MetaTitleField,
+  OverviewField,
+  PreviewField,
+} from "@payloadcms/plugin-seo/fields";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",
@@ -19,7 +28,26 @@ export const Pages: CollectionConfig<"pages"> = {
     read: adminOrPublished,
     update: adminOnly,
   },
+  defaultPopulate: {
+    title: true,
+    slug: true,
+  },
   admin: {
+    defaultColumns: ["title", "slug", "updatedAt"],
+    livePreview: {
+      url: ({ data, req }) =>
+        generatePreviewPath({
+          slug: data?.slug,
+          collection: "pages",
+          req,
+        }),
+    },
+    preview: (data, { req }) =>
+      generatePreviewPath({
+        slug: data?.slug as string,
+        collection: "pages",
+        req,
+      }),
     group: "Content",
     useAsTitle: "title",
   },
@@ -28,16 +56,6 @@ export const Pages: CollectionConfig<"pages"> = {
       name: "title",
       type: "text",
       required: true,
-    },
-    {
-      name: "publishedOn",
-      type: "date",
-      admin: {
-        date: {
-          pickerAppearance: "dayAndTime",
-        },
-        position: "sidebar",
-      },
     },
     {
       type: "tabs",
@@ -105,11 +123,37 @@ export const Pages: CollectionConfig<"pages"> = {
           ],
         },
         {
-          fields: [],
           name: "meta",
           label: "SEO",
+          fields: [
+            OverviewField({
+              titlePath: "meta.title",
+              descriptionPath: "meta.description",
+              imagePath: "meta.image",
+            }),
+            MetaTitleField({
+              hasGenerateFn: true,
+            }),
+            MetaImageField({
+              relationTo: "media",
+            }),
+            MetaDescriptionField({}),
+            PreviewField({
+              hasGenerateFn: true,
+              // field paths to match the target field for data
+              titlePath: "meta.title",
+              descriptionPath: "meta.description",
+            }),
+          ],
         },
       ],
+    },
+    {
+      name: "publishedAt",
+      type: "date",
+      admin: {
+        position: "sidebar",
+      },
     },
     slugField(),
   ],

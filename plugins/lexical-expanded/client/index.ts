@@ -5,8 +5,8 @@ import {
   toolbarAddDropdownGroupWithItems,
 } from "@payloadcms/richtext-lexical/client";
 import { ExpandedContainerNode } from "./nodes/expanded-container-node";
-import { BoldIcon } from "lucide-react";
 import { INSERT_EXPANDED_COMMAND, LayoutPlugin } from "./plugins/layout-plugin";
+import { ExpandIcon } from "@/plugins/ui/icons/expanded";
 
 export const ExpandedFeatureClient = createClientFeature({
   nodes: [ExpandedContainerNode],
@@ -20,7 +20,7 @@ export const ExpandedFeatureClient = createClientFeature({
     groups: [
       toolbarAddDropdownGroupWithItems([
         {
-          ChildComponent: BoldIcon,
+          ChildComponent: ExpandIcon,
           key: "expanded",
           label: "Expand",
           onSelect: ({ editor }) => {
