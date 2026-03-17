@@ -1,4 +1,4 @@
-import { ArrayRowLabelArgs } from './types'
+import { ArrayRowLabelArgs } from "./types";
 
 /**
  * Utility function to create a custom row label configuration for array fields.
@@ -34,7 +34,7 @@ export const customRowLabel = ({
   return {
     components: {
       RowLabel: {
-        path: '@/components/array-row-label',
+        path: "@/components/array-row-label",
         clientProps: {
           fieldToUse,
           template: Boolean(template),
@@ -42,5 +42,5 @@ export const customRowLabel = ({
         },
       },
     },
-  }
-}
+  };
+};

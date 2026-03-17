@@ -10,6 +10,7 @@ import type { CollectionConfig } from "payload";
 import { slugField } from "payload";
 
 import { generatePreviewPath } from "@/lib/generate-preview-path";
+import { populatePalette } from "@/hooks/populate-palette";
 import { populatePublishedAt } from "@/hooks/populate-published-at";
 import { revalidateDelete, revalidatePage } from "@/hooks/revalidate-page";
 import { adminOnly } from "@/access/admin-only";
@@ -161,7 +162,7 @@ export const Pages: CollectionConfig<"pages"> = {
   hooks: {
     afterChange: [revalidatePage],
     afterDelete: [revalidateDelete],
-    beforeChange: [populatePublishedAt],
+    beforeChange: [populatePublishedAt, populatePalette],
   },
   versions: {
     drafts: {

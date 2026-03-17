@@ -6,7 +6,7 @@ export type ArrayRowLabelArgs = {
    * And you can use {{variable}} syntax to include other values (e.g. 'Item {{index}} - {{fieldName}}')
    * Pass `true` to the template option to enable this feature
    */
-  fieldToUse: string
+  fieldToUse: string;
   /**
    * Whether to treat the fieldToUse as a template string
    * Enables the use of {{variable}} syntax
@@ -17,10 +17,10 @@ export type ArrayRowLabelArgs = {
    * Pass `true` to the template option to enable this feature
    * @default false
    */
-  template?: boolean
+  template?: boolean;
   /**
    *  Fallback label if the specified field is not found or is empty
    *  @default 'Item {{index}}'
    */
-  fallbackLabel?: string
-}
+  fallbackLabel?: string;
+};

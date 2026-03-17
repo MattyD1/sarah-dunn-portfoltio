@@ -1,5 +1,6 @@
-import { customRowLabel } from "@/components/array-row-label/utility";
 import { Block } from "payload";
+
+import { customRowLabel } from "@/components/array-row-label/utility";
 
 export const MarqueeBlock: Block = {
   slug: "marqueeBlock",
@@ -53,8 +54,8 @@ export const MarqueeBlock: Block = {
         },
       ],
       admin: {
-        ...customRowLabel({fieldToUse: 'text'})
-      }
+        ...customRowLabel({ fieldToUse: "text" }),
+      },
     },
   ],
 };

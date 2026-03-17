@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+
 import * as RadixColors from "@radix-ui/colors";
 import BezierEasing from "bezier-easing";
 import Color from "colorjs.io";
@@ -6,7 +10,7 @@ import { ArrayOf12, ColorPalette, grayScaleNames, scaleNames } from "./types";
 
 const arrayOf12 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
 
-export const lightColors = Object.fromEntries(
+const lightColors = Object.fromEntries(
   scaleNames.map((scaleName) => [
     scaleName,
     Object.values(RadixColors[`${scaleName}P3`]).map((str) =>
@@ -93,18 +97,12 @@ export const generatePalette = ({
 
   // Limit saturation of the text colors
   accentScaleColors[10].coords[1] = Math.min(
-    Math.max(
-      accentScaleColors[8].coords[1] ?? 0,
-      accentScaleColors[7].coords[1] ?? 0
-    ),
-    accentScaleColors[10].coords[1] ?? 0
+    Math.max(accentScaleColors[8].coords[1], accentScaleColors[7].coords[1]),
+    accentScaleColors[10].coords[1]
   );
   accentScaleColors[11].coords[1] = Math.min(
-    Math.max(
-      accentScaleColors[8].coords[1] ?? 0,
-      accentScaleColors[7].coords[1] ?? 0
-    ),
-    accentScaleColors[11].coords[1] ?? 0
+    Math.max(accentScaleColors[8].coords[1], accentScaleColors[7].coords[1]),
+    accentScaleColors[11].coords[1]
   );
 
   const accentScaleHex = accentScaleColors.map((color) =>
@@ -136,16 +134,13 @@ export const generatePalette = ({
   return {
     accentScale: accentScaleHex,
     accentScaleWideGamut: accentScaleWideGamut,
-
     grayScale: grayScaleHex,
     grayScaleWideGamut: grayScaleWideGamut,
-
     graySurface: appearance === "light" ? "#ffffffcc" : "rgba(0, 0, 0, 0.05)",
     graySurfaceWideGamut:
       appearance === "light"
         ? "color(display-p3 1 1 1 / 80%)"
         : "color(display-p3 0 0 0 / 5%)",
-
     accentSurface: accentSurfaceHex,
     accentSurfaceWideGamut: accentSurfaceWideGamutString,
   };
@@ -169,12 +164,8 @@ function getStep9Colors(
 
 function getButtonHoverColor(source: Color, scales: ArrayOf12<Color>[]) {
   const [L, C, H] = source.coords;
-
-  const newL =
-    (L ?? 0) > 0.4
-      ? (L ?? 0) - 0.03 / ((L ?? 0) + 0.1)
-      : (L ?? 0) + 0.03 / ((L ?? 0) + 0.1);
-  const newC = (L ?? 0) > 0.4 && !isNaN(H ?? 0) ? (C ?? 0) * 0.93 + 0 : C;
+  const newL = L > 0.4 ? L - 0.03 / (L + 0.1) : L + 0.03 / (L + 0.1);
+  const newC = L > 0.4 && !isNaN(H) ? C * 0.93 + 0 : C;
   const buttonHoverColor = new Color("oklch", [newL, newC, H]);
 
   // Find closest in-scale color to donate the chroma and hue.
@@ -315,24 +306,21 @@ function getScaleFromColor(
     .sort((a, b) => source.deltaEOK(a) - source.deltaEOK(b))[0];
 
   // Note the chroma difference between the source color and the base color
-  const ratioC = source.coords[1] ?? 0 / (baseColor.coords[1] ?? 1);
+  const ratioC = source.coords[1] / baseColor.coords[1];
 
   // Modify hue and chroma of the scale to match the source color
   scale.forEach((color) => {
     color.coords[1] = Math.min(
-      (source.coords[1] ?? 0) * 1.5,
-      (color.coords[1] ?? 0) * ratioC
+      source.coords[1] * 1.5,
+      color.coords[1] * ratioC
     );
     color.coords[2] = source.coords[2];
   });
 
   // Light mode
-  if ((scale[0].coords[0] ?? 0) > 0.5) {
-    const lightnessScale = scale.map(({ coords }) => coords[0] ?? 0);
-    const backgroundL = Math.max(
-      0,
-      Math.min(1, backgroundColor.coords[0] ?? 0)
-    );
+  if (scale[0].coords[0] > 0.5) {
+    const lightnessScale = scale.map(({ coords }) => coords[0]);
+    const backgroundL = Math.max(0, Math.min(1, backgroundColor.coords[0]));
     const newLightnessScale = transposeProgressionStart(
       backgroundL,
       // Add white as the first "step" of the light scale
@@ -353,13 +341,10 @@ function getScaleFromColor(
   // Dark mode
   const ease: typeof darkModeEasing = [...darkModeEasing];
   const referenceBackgroundColorL = scale[0].coords[0];
-  const backgroundColorL = Math.max(
-    0,
-    Math.min(1, backgroundColor.coords[0] ?? 0)
-  );
+  const backgroundColorL = Math.max(0, Math.min(1, backgroundColor.coords[0]));
 
   // If background is lighter than step 0, we want to gradually change the easing to linear
-  const ratioL = backgroundColorL / (referenceBackgroundColorL ?? 0);
+  const ratioL = backgroundColorL / referenceBackgroundColorL;
 
   if (ratioL > 1) {
     const maxRatio = 1.5;
@@ -370,8 +355,8 @@ function getScaleFromColor(
     }
   }
 
-  const lightnessScale = scale.map(({ coords }) => coords[0] ?? 0);
-  const backgroundL = backgroundColor.coords[0] ?? 0;
+  const lightnessScale = scale.map(({ coords }) => coords[0]);
+  const backgroundL = backgroundColor.coords[0];
   const newLightnessScale = transposeProgressionStart(
     backgroundL,
     lightnessScale,
@@ -389,9 +374,8 @@ function getTextColor(background: Color) {
   const white = new Color("oklch", [1, 0, 0]);
 
   if (Math.abs(white.contrastAPCA(background)) < 40) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [L, C, H] = background.coords;
-    return new Color("oklch", [0.25, Math.max(0.08 * (C ?? 0), 0.04), H]);
+    return new Color("oklch", [0.25, Math.max(0.08 * C, 0.04), H]);
   }
 
   return white;
@@ -529,12 +513,9 @@ function getAlphaColorSrgb(
   backgroundColor: string,
   targetAlpha?: number
 ) {
-  const targetRgb = new Color(targetColor).to("srgb").coords as number[];
-  const backgroundRbg = new Color(backgroundColor).to("srgb")
-    .coords as number[];
   const [r, g, b, a] = getAlphaColor(
-    targetRgb,
-    backgroundRbg,
+    new Color(targetColor).to("srgb").coords,
+    new Color(backgroundColor).to("srgb").coords,
     255,
     255,
     targetAlpha
@@ -548,12 +529,9 @@ function getAlphaColorP3(
   backgroundColor: string,
   targetAlpha?: number
 ) {
-  const targetRgb = new Color(targetColor).to("p3").coords as number[];
-  const backgroundRgb = new Color(targetColor).to("p3").coords as number[];
-
   const [r, g, b, a] = getAlphaColor(
-    targetRgb,
-    backgroundRgb,
+    new Color(targetColor).to("p3").coords,
+    new Color(backgroundColor).to("p3").coords,
     // Not sure why, but the resulting P3 alpha colors are blended in the browser most precisely when
     // rounded to 255 integers too. Is the browser using 0-255 rather than 0-1 under the hood for P3 too?
     255,
@@ -598,7 +576,7 @@ function formatHex(str: string) {
 const darkModeEasing = [1, 0, 1, 0] as [number, number, number, number];
 const lightModeEasing = [0, 2, 0, 2] as [number, number, number, number];
 
-function transposeProgressionStart(
+export function transposeProgressionStart(
   to: number,
   arr: number[],
   curve: [number, number, number, number]
@@ -611,10 +589,23 @@ function transposeProgressionStart(
   });
 }
 
+export function transposeProgressionEnd(
+  to: number,
+  arr: number[],
+  curve: [number, number, number, number]
+) {
+  return arr.map((n, i, arr) => {
+    const lastIndex = arr.length - 1;
+    const diff = arr[lastIndex] - to;
+    const fn = BezierEasing(...curve);
+    return n - diff * fn(i / lastIndex);
+  });
+}
+
 // Convert to OKLCH string with percentage for the lightness channel
 // https://github.com/radix-ui/themes/issues/420
 function toOklchString(color: Color) {
-  const L = +((color.coords[0] ?? 0) * 100).toFixed(1);
+  const L = +(color.coords[0] * 100).toFixed(1);
   return color
     .to("oklch")
     .toString({ precision: 4 })

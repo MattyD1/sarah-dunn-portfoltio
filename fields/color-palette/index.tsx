@@ -2,47 +2,41 @@
 
 import "./style.scss";
 
-import { useEffect } from "react";
-import { FieldLabel, useField, useWatchForm } from "@payloadcms/ui";
+import { Button, FieldLabel, Link, Table, useField } from "@payloadcms/ui";
+import Color from "colorjs.io";
 import { Field, JSONField } from "payload";
 
-import { generatePalette } from "./generate-palette";
 import { ColorPalette as ColorPaletteType } from "./types";
 
 type ColorPaletteProps = (options?: {
   overrides?: Partial<JSONField>;
 }) => Field;
 
+const useCases: Record<number, string> = {
+  1: "App background",
+  2: "Subtle background",
+  3: "UI elelement background",
+  4: "Hovered UI element background",
+  5: "Active / Selected UI element background",
+  6: "Subtle borders and separators",
+  7: "UI element border and focus rings",
+  8: "Hovered UI element borders",
+  9: "Solid backgrounds",
+  10: "Hovered solid background",
+  11: "Low-contrast text",
+  12: "High-contrast text",
+};
+
 const ColorPalette: React.FC<ColorPaletteProps> = ({}) => {
-  const { setValue, value } = useField<ColorPaletteType>({});
-  // const [localValue, setLocalValue] = useState(value || {});
-
-  const { fields } = useWatchForm();
-  const {
-    ["theme.accentColor"]: { value: accent },
-    ["theme.backgroundColor"]: { value: background },
-    ["theme.grayColor"]: { value: gray },
-    ["theme.dark"]: { value: dark },
-  } = fields;
-
-  useEffect(() => {
-    const palette = generatePalette({
-      appearance: dark ? "dark" : "light",
-      accent: (accent as string | null) ?? "#fff",
-      gray: (gray as string | null) ?? "#fff",
-      background: (background as string | null) ?? "#fff",
-    });
-
-    if (!palette) return;
-
-    setValue(palette);
-  }, [dark, accent, background, gray, setValue]);
+  const { value } = useField<ColorPaletteType>({});
 
   if (!value?.accentScale) return <div>no scales</div>;
 
+  const data: Record<string, unknown>[] = [{ string: "test" }];
+
   return (
     <div className="color-palette">
-      <FieldLabel label="Palette" as="h3" />
+      <FieldLabel label="Color Palette" as="h3" />
       <div className="color-palette__main">
         <div className="color-palette__input-grid">
           {/* Labels */}
@@ -61,6 +55,10 @@ const ColorPalette: React.FC<ColorPaletteProps> = ({}) => {
           <ColorUsageRange style={{ gridColumn: "11/13" }}>
             Accessible Text
           </ColorUsageRange>
+
+          {Array.from({ length: 12 }).map((_, i) => (
+            <ColorNumber key={i}>{(i + 1).toString()}</ColorNumber>
+          ))}
 
           {/* Accent Grid */}
           {value?.accentScale.map((color, i) => {
@@ -95,6 +93,52 @@ const ColorPalette: React.FC<ColorPaletteProps> = ({}) => {
           })}
         </div>
       </div>
+      <div className="color-palette__details">
+        <div className="color-palette__details-heading">
+          <FieldLabel label="Understanding the Palette" as="h3" />
+          <Link
+            href="https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn more
+          </Link>
+        </div>
+        <table className="color-palette__table">
+          <thead>
+            <tr>
+              <th className="color-palette__table__table-heading">
+                <p className="color-palette__table__table-text">Step</p>
+              </th>
+              <th className="color-palette__table__table-heading">
+                <p className="color-palette__table__table-text">Use Case</p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(useCases).map(([key, value]) => {
+              return (
+                <tr
+                  key={key}
+                  style={{
+                    backgroundColor:
+                      Number(key) % 2 === 1
+                        ? "var(--theme-elevation-50)"
+                        : "transparent",
+                  }}
+                >
+                  <td className="color-palette__table__table-details">
+                    <p className="color-palette__table__table-text">{key}</p>
+                  </td>
+                  <td className="color-palette__table__table-details">
+                    <p className="color-palette__table__table-text">{value}</p>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
@@ -107,6 +151,17 @@ const ColorUsageRange = ({
     <div className="color-usage-range" {...props}>
       <p className="color-usage-range__text">{children}</p>
       <div className="color-usage-range__border" />
+    </div>
+  );
+};
+
+const ColorNumber = ({
+  children,
+  ...props
+}: React.ComponentPropsWithoutRef<"div">) => {
+  return (
+    <div className="color-number" {...props}>
+      <p className="color-number__text">{children}</p>
     </div>
   );
 };
